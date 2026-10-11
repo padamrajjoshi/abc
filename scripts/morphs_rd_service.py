@@ -51,6 +51,32 @@ DLL_CANDIDATES = [
 ]
 
 
+def _collect_dll_candidates():
+    candidates = list(filter(None, DLL_CANDIDATES))
+    search_roots = [
+        r"C:\Program Files\Mantra",
+        r"C:\Program Files (x86)\Mantra",
+        r"C:\Mantra",
+        os.path.join(os.path.expanduser("~"), "Desktop"),
+        os.path.join(os.path.expanduser("~"), "Downloads"),
+        os.path.dirname(os.path.abspath(__file__)),
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ]
+    for root_dir in search_roots:
+        if os.path.exists(root_dir):
+            try:
+                for root, _, files in os.walk(root_dir):
+                    for f in files:
+                        fl = f.lower()
+                        if fl.endswith(".dll") and ("morph" in fl or "mantra" in fl or "mfs" in fl or "vdm" in fl):
+                            full_path = os.path.join(root, f)
+                            if full_path not in candidates:
+                                candidates.append(full_path)
+            except Exception:
+                pass
+    return candidates
+
+
 class HardwareManager:
     """Manages connection to the physical Mantra MORPHS scanner."""
     def __init__(self):
@@ -64,14 +90,16 @@ class HardwareManager:
             log.info("Non-Windows OS detected (%s); operating in bridge mode.", platform.system())
             return
 
-        for cand in filter(None, DLL_CANDIDATES):
+        all_candidates = _collect_dll_candidates()
+        for cand in all_candidates:
             if os.path.exists(cand) or not os.path.isabs(cand):
                 try:
                     loader = getattr(ctypes, 'WinDLL', ctypes.CDLL)
-                    self.dll = loader(cand)
+                    loaded = loader(cand)
+                    self.dll = loaded
                     self.dll_path = cand
                     self.device_connected = True
-                    log.info("✅ Found and loaded Mantra MORPHS hardware DLL: %s", cand)
+                    log.info("✅ Found and loaded Mantra hardware DLL: %s", cand)
                     break
                 except Exception as e:
                     log.debug("Tried %s: %s", cand, e)
