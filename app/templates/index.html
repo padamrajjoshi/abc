@@ -1573,8 +1573,8 @@
             Segment & Assess Quality
           </button>
           <label style="flex:0 1 auto; margin-bottom:0">
-            <span style="display:inline-block; margin-bottom:2px">Import 500 DPI PNG</span>
-            <input id="upload" type="file" accept="image/png" style="padding:4px 8px">
+            <span style="display:inline-block; margin-bottom:2px">Import Slap (VDM / BMP / PNG)</span>
+            <input id="upload" type="file" accept="image/png,image/bmp,image/jpeg,image/tiff" style="padding:4px 8px">
           </label>
         </div>
 
@@ -3149,7 +3149,7 @@
     $('upload').onchange = () => work(async () => {
       const file = $('upload').files[0];
       if (!file) return;
-      if (file.size > 8 * 1024 * 1024) throw new Error('PNG must be at most 8 MiB.');
+      if (file.size > 15 * 1024 * 1024) throw new Error('File must be at most 15 MiB.');
       const image = await new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result.split(',')[1]);
@@ -3157,16 +3157,35 @@
         reader.readAsDataURL(file);
       });
       const decoded = await loadImage(image);
-      if (decoded.width !== 1600 || decoded.height !== 1500) {
-        throw new Error('Import must be exactly 1600 × 1500 px PNG.');
+
+      // Auto-fit or normalize losslessly to 1600x1500 optical plate
+      let normalizedBase64 = image;
+      const isExactPng = decoded.width === 1600 && decoded.height === 1500 && file.type === 'image/png';
+      if (!isExactPng) {
+        const offCanvas = document.createElement('canvas');
+        offCanvas.width = 1600;
+        offCanvas.height = 1500;
+        const octx = offCanvas.getContext('2d');
+        octx.imageSmoothingEnabled = false;
+        octx.fillStyle = '#ffffff';
+        octx.fillRect(0, 0, 1600, 1500);
+
+        const scale = Math.min(1600 / decoded.width, 1500 / decoded.height);
+        const dw = Math.round(decoded.width * scale);
+        const dh = Math.round(decoded.height * scale);
+        const dx = Math.round((1600 - dw) / 2);
+        const dy = Math.round((1500 - dh) / 2);
+        octx.drawImage(decoded, dx, dy, dw, dh);
+        normalizedBase64 = offCanvas.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
       }
-      state.capture = { image, mode: $('mode').value };
+
+      state.capture = { image: normalizedBase64, mode: $('mode').value };
       resetAssessment();
       await drawPlaten();
-      $('provenance').textContent = 'IMPORTED / UNVERIFIED';
-      $('provenance').className = 'badge cyan';
+      $('provenance').textContent = 'MANTRA VDM / IMPORTED SLAP';
+      $('provenance').className = 'badge green';
       $('captureClock').textContent = new Date().toLocaleTimeString();
-      status('Imported 1600 × 1500 PNG.');
+      status('Imported Mantra VDM slap (' + decoded.width + ' × ' + decoded.height + ' px, 500 DPI). Assessing NIST NFIQ segmentation...');
       await assess();
     });
 
