@@ -281,12 +281,12 @@ async def unavailable(request, exc):
 
 @app.get('/', response_class=HTMLResponse)
 def index():
-    return (Path(__file__).parent / 'templates/index.html').read_text()
+    return (Path(__file__).parent / 'templates/index.html').read_text(encoding='utf-8')
 
 
 @app.get('/database', response_class=HTMLResponse)
 def database_page():
-    return (Path(__file__).parent / 'templates/database.html').read_text()
+    return (Path(__file__).parent / 'templates/database.html').read_text(encoding='utf-8')
 
 
 
