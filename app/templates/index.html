@@ -2012,6 +2012,11 @@
       return r.json();
     }
 
+    function setText(id, val) {
+      const el = $(id);
+      if (el) el.textContent = val;
+    }
+
     function setStep(stepNum) {
       state.currentStep = Math.max(1, Math.min(6, stepNum));
 
@@ -2027,85 +2032,85 @@
       if (activeTab) activeTab.classList.add('active');
 
       // Hide all panels, show active
-      $('panelStep1').style.display = (state.currentStep === 1) ? 'block' : 'none';
-      $('panelBiometrics').style.display = (state.currentStep >= 2 && state.currentStep <= 4) ? 'block' : 'none';
-      $('panelStep5').style.display = (state.currentStep === 5) ? 'block' : 'none';
-      $('panelStep6').style.display = (state.currentStep === 6) ? 'block' : 'none';
+      if ($('panelStep1')) $('panelStep1').style.display = (state.currentStep === 1) ? 'block' : 'none';
+      if ($('panelBiometrics')) $('panelBiometrics').style.display = (state.currentStep >= 2 && state.currentStep <= 4) ? 'block' : 'none';
+      if ($('panelStep5')) $('panelStep5').style.display = (state.currentStep === 5) ? 'block' : 'none';
+      if ($('panelStep6')) $('panelStep6').style.display = (state.currentStep === 6) ? 'block' : 'none';
 
       // Configure Biometrics Panel depending on active step
       if (state.currentStep === 2) {
-        $('activeGroupBadge').textContent = 'STEP 2: RIGHT FOUR (4)';
-        $('bioStepTag').textContent = 'PHASE 02';
-        $('bioStepTitle').textContent = 'Right Four Slap Acquisition (Index → Little)';
-        $('captureBtnText').textContent = 'Capture Right Four Slap';
-        $('mode').value = 'right4';
+        setText('activeGroupBadge', 'STEP 2: RIGHT FOUR (4)');
+        setText('bioStepTag', 'PHASE 02');
+        setText('bioStepTitle', 'Right Four Slap Acquisition (Index → Little)');
+        setText('captureBtnText', 'Capture Right Four Slap');
+        if ($('mode')) $('mode').value = 'right4';
         updateHandGuide();
-        $('flowTitle').textContent = 'Phase 2: Right Four Slap Acquisition';
-        $('flowDesc').textContent = 'Position applicant\'s Right Index, Middle, Ring, and Little fingers flat on platen. Ensure all NFIQ scores ≤ 3.';
-        $('btnProceedGroup').textContent = 'Approve Right Four & Proceed to Left Four (4) ➔';
+        setText('flowTitle', 'Phase 2: Right Four Slap Acquisition');
+        setText('flowDesc', 'Position applicant\'s Right Index, Middle, Ring, and Little fingers flat on platen. Ensure all NFIQ scores ≤ 3.');
+        setText('btnProceedGroup', 'Approve Right Four & Proceed to Left Four (4) ➔');
       } else if (state.currentStep === 3) {
-        $('activeGroupBadge').textContent = 'STEP 3: LEFT FOUR (4)';
-        $('bioStepTag').textContent = 'PHASE 03';
-        $('bioStepTitle').textContent = 'Left Four Slap Acquisition (Little → Index)';
-        $('captureBtnText').textContent = 'Capture Left Four Slap';
-        $('mode').value = 'left4';
+        setText('activeGroupBadge', 'STEP 3: LEFT FOUR (4)');
+        setText('bioStepTag', 'PHASE 03');
+        setText('bioStepTitle', 'Left Four Slap Acquisition (Little → Index)');
+        setText('captureBtnText', 'Capture Left Four Slap');
+        if ($('mode')) $('mode').value = 'left4';
         updateHandGuide();
-        $('flowTitle').textContent = 'Phase 3: Left Four Slap Acquisition';
-        $('flowDesc').textContent = 'Position applicant\'s Left Little, Ring, Middle, and Index fingers flat on platen. Ensure all NFIQ scores ≤ 3.';
-        $('btnProceedGroup').textContent = 'Approve Left Four & Proceed to Dual Thumbs (2) ➔';
+        setText('flowTitle', 'Phase 3: Left Four Slap Acquisition');
+        setText('flowDesc', 'Position applicant\'s Left Little, Ring, Middle, and Index fingers flat on platen. Ensure all NFIQ scores ≤ 3.');
+        setText('btnProceedGroup', 'Approve Left Four & Proceed to Dual Thumbs (2) ➔');
       } else if (state.currentStep === 4) {
-        $('activeGroupBadge').textContent = 'STEP 4: DUAL THUMBS (2)';
-        $('bioStepTag').textContent = 'PHASE 04';
-        $('bioStepTitle').textContent = 'Dual Thumbs Acquisition (Left & Right Thumb)';
-        $('captureBtnText').textContent = 'Capture Dual Thumbs';
-        $('mode').value = 'thumbs';
+        setText('activeGroupBadge', 'STEP 4: DUAL THUMBS (2)');
+        setText('bioStepTag', 'PHASE 04');
+        setText('bioStepTitle', 'Dual Thumbs Acquisition (Left & Right Thumb)');
+        setText('captureBtnText', 'Capture Dual Thumbs');
+        if ($('mode')) $('mode').value = 'thumbs';
         updateHandGuide();
-        $('flowTitle').textContent = 'Phase 4: Dual Thumbs Slap Acquisition';
-        $('flowDesc').textContent = 'Position Left Thumb and Right Thumb flat on the center of the optical platen.';
-        $('btnProceedGroup').textContent = 'Approve Dual Thumbs & Finalize 10-Print Dossier ➔';
+        setText('flowTitle', 'Phase 4: Dual Thumbs Slap Acquisition');
+        setText('flowDesc', 'Position Left Thumb and Right Thumb flat on the center of the optical platen.');
+        setText('btnProceedGroup', 'Approve Dual Thumbs & Finalize 10-Print Dossier ➔');
       } else if (state.currentStep === 5) {
-        $('activeGroupBadge').textContent = 'STEP 5: BIOMETRIC DOSSIER';
-        $('flowTitle').textContent = 'Phase 5: Final Biometric Dossier Commit';
-        $('flowDesc').textContent = 'All 10 fingers acquired and verified. Dossier synchronized to Central Biometric Database.';
+        setText('activeGroupBadge', 'STEP 5: BIOMETRIC DOSSIER');
+        setText('flowTitle', 'Phase 5: Final Biometric Dossier Commit');
+        setText('flowDesc', 'All 10 fingers acquired and verified. Dossier synchronized to Central Biometric Database.');
         updateDossierCard();
       } else if (state.currentStep === 6) {
-        $('activeGroupBadge').textContent = 'STEP 6: BORDER AFIS MATCH';
-        $('flowTitle').textContent = 'Phase 6: SourceAFIS Verification & Search';
-        $('flowDesc').textContent = 'Perform 1:1 identity verification or 1:N border database search against enrolled records.';
+        setText('activeGroupBadge', 'STEP 6: BORDER AFIS MATCH');
+        setText('flowTitle', 'Phase 6: SourceAFIS Verification & Search');
+        setText('flowDesc', 'Perform 1:1 identity verification or 1:N border database search against enrolled records.');
       }
 
       availability();
     }
 
     function updateDossierCard() {
-      const pNum = $('passport_number').value || 'GR9842105';
-      const sName = ($('given_names').value + ' ' + $('surname').value).trim() || 'NIKOLAOS PAPADOPOULOS';
-      $('dossierPassport').textContent = 'PASSPORT: ' + pNum.toUpperCase();
-      $('dossierName').textContent = sName.toUpperCase();
-      $('dossierNat').textContent = $('nationality').value || 'GRC';
-      $('dossierDob').textContent = $('date_of_birth').value || '1992-06-15';
-      $('dossierRef').textContent = $('visa_ref').value || 'GR-VIS-2026-8941';
+      const pNum = ($('passport_number') ? $('passport_number').value : '') || 'GR9842105';
+      const sName = (($('given_names') ? $('given_names').value : '') + ' ' + ($('surname') ? $('surname').value : '')).trim() || 'NIKOLAOS PAPADOPOULOS';
+      setText('dossierPassport', 'PASSPORT: ' + pNum.toUpperCase());
+      setText('dossierName', sName.toUpperCase());
+      setText('dossierNat', ($('nationality') ? $('nationality').value : '') || 'GRC');
+      setText('dossierDob', ($('date_of_birth') ? $('date_of_birth').value : '') || '1992-06-15');
+      setText('dossierRef', ($('visa_ref') ? $('visa_ref').value : '') || 'GR-VIS-2026-8941');
     }
 
     function updateHandGuide() {
-      const mode = $('mode').value;
+      const mode = $('mode') ? $('mode').value : 'right4';
       const leftHand = $('leftHandPath');
       const rightHand = $('rightHandPath');
       if (mode === 'right4') {
-        leftHand.style.opacity = '0.2';
-        rightHand.style.opacity = '1';
-        $('placementTitle').textContent = 'Right Four Finger Position';
-        $('placementDesc').textContent = 'Place Right Index, Middle, Ring, and Little fingers flat across the platen.';
+        if (leftHand) leftHand.style.opacity = '0.2';
+        if (rightHand) rightHand.style.opacity = '1';
+        setText('placementTitle', 'Right Four Finger Position');
+        setText('placementDesc', 'Place Right Index, Middle, Ring, and Little fingers flat across the platen.');
       } else if (mode === 'left4') {
-        leftHand.style.opacity = '1';
-        rightHand.style.opacity = '0.2';
-        $('placementTitle').textContent = 'Left Four Finger Position';
-        $('placementDesc').textContent = 'Place Left Little, Ring, Middle, and Index fingers flat across the platen.';
+        if (leftHand) leftHand.style.opacity = '1';
+        if (rightHand) rightHand.style.opacity = '0.2';
+        setText('placementTitle', 'Left Four Finger Position');
+        setText('placementDesc', 'Place Left Little, Ring, Middle, and Index fingers flat across the platen.');
       } else {
-        leftHand.style.opacity = '0.85';
-        rightHand.style.opacity = '0.85';
-        $('placementTitle').textContent = 'Dual Thumbs Position';
-        $('placementDesc').textContent = 'Place Left and Right thumbs side-by-side on the center of the platen.';
+        if (leftHand) leftHand.style.opacity = '0.85';
+        if (rightHand) rightHand.style.opacity = '0.85';
+        setText('placementTitle', 'Dual Thumbs Position');
+        setText('placementDesc', 'Place Left and Right thumbs side-by-side on the center of the platen.');
       }
     }
 
