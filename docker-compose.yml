@@ -1,0 +1,33 @@
+services:
+  studio:
+    platform: linux/amd64
+    build: .
+    ports:
+      - "${STUDIO_PORT:-8000}:8000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DEVICE_MODE: ${DEVICE_MODE:-auto}
+      MATCHER_ENGINE: sourceafis
+      API_TOKEN: ${API_TOKEN:-}
+      ALLOW_ESTIMATED_QUALITY: ${ALLOW_ESTIMATED_QUALITY:-1}
+      MONGODB_USERNAME: ${MONGODB_USERNAME:-}
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD:-}
+      MONGODB_URI: ${MONGODB_URI:-${MONGO_URI:-}}
+      MONGO_URI: ${MONGODB_URI:-${MONGO_URI:-}}
+    volumes:
+      - biometrics:/studio/data
+      - ./app:/studio/app:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 128
+    mem_limit: 2g
+
+volumes:
+  biometrics:

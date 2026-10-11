@@ -1,0 +1,14 @@
+# Linux host only. Combine with docker-compose.yml; requires a verified SDK adapter.
+services:
+  studio:
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    # Vendor USB permissions vary; this hardware override runs as root.
+    user: "0:0"
+    environment:
+      DEVICE_MODE: hardware
+      MORPHS_LIBRARY: /opt/morphs/libMorpHs.so
+      MORPHS_ADAPTER: /opt/morphs/libstudio_morphs.so
+      LD_LIBRARY_PATH: /opt/morphs
+    volumes:
+      - ./vendor/morphs:/opt/morphs:ro

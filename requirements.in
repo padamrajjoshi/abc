@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+numpy
+opencv-python-headless
+Pillow
+JPype1
+cbor2
+httpx
+pytest
+pymongo
+dnspython
+pypdf
+pdfplumber
+pytesseract
+passporteye
+python-multipart

@@ -1,0 +1,3215 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hellenic Republic — Greece Visa Biometrics Station · 4-4-2 Optical Acquisition Workstation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ==========================================================================
+   SHADCN DESIGN SYSTEM THEME TOKENS (SLATE / ZINC DARK PALETTE)
+   ========================================================================== */
+    :root {
+      /* Shadcn Core Surface & Neutral Tokens */
+      --background: #080c14;
+      --foreground: #f8fafc;
+      --card: #0d1522;
+      --card-foreground: #f8fafc;
+      --card-hover: #121c2d;
+      --popover: #0d1522;
+      --popover-foreground: #f8fafc;
+
+      /* Primary Accent: High-Tech Biometric Emerald */
+      --primary: #00e5a3;
+      --primary-rgb: 0, 229, 163;
+      --primary-foreground: #021a12;
+
+      /* Secondary & Muted Surfaces */
+      --secondary: #172233;
+      --secondary-foreground: #f1f5f9;
+      --muted: #111a28;
+      --muted-foreground: #94a3b8;
+      --accent: #192639;
+      --accent-foreground: #f8fafc;
+
+      /* Status Colors */
+      --destructive: #ef4444;
+      --destructive-foreground: #ffffff;
+      --cyan: #38bdf8;
+      --cyan-dim: rgba(56, 189, 248, 0.12);
+      --warning: #f59e0b;
+      --warning-dim: rgba(245, 158, 11, 0.12);
+      --danger: #f43f5e;
+      --danger-dim: rgba(244, 63, 94, 0.12);
+      --greek-blue: #0284c7;
+      --greek-blue-dim: rgba(2, 132, 199, 0.15);
+
+      /* Borders, Inputs, Focus Rings */
+      --border: #1e2c3f;
+      --border-light: #263850;
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-focus: #00e5a3;
+      --input: #080d15;
+      --ring: #00e5a3;
+
+      /* Layout, Radii & Typography */
+      --radius-xs: 4px;
+      --radius-sm: 6px;
+      --radius: 8px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 18px;
+
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      /* Elevation Shadows */
+      --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+      --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 14px -2px rgba(0, 0, 0, 0.5), 0 2px 6px -2px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 12px 28px -4px rgba(0, 0, 0, 0.65), 0 4px 8px -4px rgba(0, 0, 0, 0.5);
+      --shadow-dialog: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      --shadow-glow: 0 0 24px rgba(0, 229, 163, 0.2);
+
+      /* Legacy Variable Fallbacks for Backward Compatibility */
+      --bg-dark: var(--background);
+      --bg-surface: var(--muted);
+      --bg-card: var(--card);
+      --bg-card-hover: var(--card-hover);
+      --bg-input: var(--input);
+      --text-main: var(--foreground);
+      --text-muted: var(--muted-foreground);
+      --text-dim: #64748b;
+      --accent-dim: rgba(0, 229, 163, 0.12);
+      --accent-hover: #1cf5b4;
+    }
+
+    /* ==========================================================================
+   BASE RESET & SHADCN TYPOGRAPHY
+   ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--background);
+      color: var(--foreground);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--background);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 9999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--border-light);
+    }
+
+    /* ==========================================================================
+   HEADER & WORKSTATION NAVIGATION
+   ========================================================================== */
+    header {
+      background: rgba(11, 17, 26, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-flag {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #0284c7, #03366a);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.35);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .brand-flag:hover {
+      transform: scale(1.03);
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title h1 {
+      font-size: 14.5px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--foreground);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title .badge-vis {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      background: rgba(2, 132, 199, 0.16);
+      color: #38bdf8;
+      padding: 2px 7px;
+      border-radius: var(--radius-xs);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      letter-spacing: 0.5px;
+    }
+
+    .brand-title span {
+      font-size: 11px;
+      color: var(--muted-foreground);
+    }
+
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .capsule {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(17, 26, 40, 0.85);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted-foreground);
+      transition: border-color 0.15s ease;
+    }
+
+    .capsule:hover {
+      border-color: var(--border-light);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 8px var(--primary);
+      animation: pulse-dot 2.5s infinite;
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.35;
+        transform: scale(0.85);
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ==========================================================================
+   SHADCN BUTTONS & INTERACTIVE CONTROLS
+   ========================================================================== */
+    button,
+    .btn {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      height: 34px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--foreground);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+      user-select: none;
+      text-decoration: none;
+      box-shadow: var(--shadow-xs);
+    }
+
+    button:hover:not(:disabled),
+    .btn:hover:not(:disabled) {
+      background: var(--card-hover);
+      border-color: var(--border-light);
+      color: #fff;
+    }
+
+    button:active:not(:disabled),
+    .btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    button:focus-visible,
+    .btn:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    button:disabled,
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Button Variants */
+    button.primary,
+    .btn.primary {
+      background: var(--primary);
+      color: var(--primary-foreground);
+      border-color: var(--primary);
+      font-weight: 700;
+      box-shadow: 0 1px 3px rgba(0, 229, 163, 0.25), 0 0 14px rgba(0, 229, 163, 0.15);
+    }
+
+    button.primary:hover:not(:disabled),
+    .btn.primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      box-shadow: 0 2px 10px rgba(0, 229, 163, 0.4);
+      color: var(--primary-foreground);
+    }
+
+    button.secondary,
+    .btn.secondary {
+      background: var(--secondary);
+      color: var(--secondary-foreground);
+      border: 1px solid var(--border-light);
+    }
+
+    button.secondary:hover:not(:disabled),
+    .btn.secondary:hover:not(:disabled) {
+      background: #1e2c40;
+      border-color: #354b66;
+    }
+
+    button.ghost,
+    .btn.ghost {
+      background: transparent;
+      border-color: transparent;
+      color: var(--muted-foreground);
+      box-shadow: none;
+    }
+
+    button.ghost:hover:not(:disabled),
+    .btn.ghost:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--foreground);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    button.danger,
+    .btn.danger {
+      background: var(--danger-dim);
+      color: #fda4af;
+      border-color: rgba(244, 63, 94, 0.35);
+    }
+
+    button.danger:hover:not(:disabled),
+    .btn.danger:hover:not(:disabled) {
+      background: rgba(244, 63, 94, 0.25);
+      color: #fff;
+      border-color: rgba(244, 63, 94, 0.6);
+      box-shadow: 0 0 14px rgba(244, 63, 94, 0.3);
+    }
+
+    button.cyan,
+    .btn.cyan {
+      background: var(--cyan-dim);
+      color: #7dd3fc;
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+
+    button.cyan:hover:not(:disabled),
+    .btn.cyan:hover:not(:disabled) {
+      background: rgba(56, 189, 248, 0.25);
+      color: #fff;
+      border-color: rgba(56, 189, 248, 0.6);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
+    }
+
+    button.sm,
+    .btn.sm {
+      height: 28px;
+      padding: 4px 10px;
+      font-size: 11.5px;
+      border-radius: var(--radius-xs);
+    }
+
+    /* ==========================================================================
+   SHADCN FORM INPUTS & LABELS
+   ========================================================================== */
+    input,
+    select {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--foreground);
+      background: var(--input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      height: 36px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      width: 100%;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    input:hover,
+    select:hover {
+      border-color: var(--border-light);
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--primary);
+      background: #0b121c;
+      box-shadow: 0 0 0 1px var(--primary), 0 0 0 3px rgba(0, 229, 163, 0.15);
+    }
+
+    input::placeholder {
+      color: #4b5d73;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted-foreground);
+      margin-bottom: 6px;
+    }
+
+    /* ==========================================================================
+   SHADCN PILLS & STATUS BADGES
+   ========================================================================== */
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted-foreground);
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      letter-spacing: 0.3px;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    .badge.green,
+    .badge.success {
+      background: var(--accent-dim);
+      color: var(--primary);
+      border-color: rgba(0, 229, 163, 0.3);
+    }
+
+    .badge.yellow,
+    .badge.warning {
+      background: var(--warning-dim);
+      color: var(--warning);
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    .badge.red,
+    .badge.danger {
+      background: var(--danger-dim);
+      color: #fda4af;
+      border-color: rgba(244, 63, 94, 0.3);
+    }
+
+    .badge.cyan {
+      background: var(--cyan-dim);
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    .badge.blue {
+      background: var(--greek-blue-dim);
+      color: #60a5fa;
+      border-color: rgba(96, 165, 250, 0.3);
+    }
+
+    /* ==========================================================================
+   PROCESS STEPPER NAVIGATION (SHADCN PIPELINE TABS)
+   ========================================================================== */
+    .stepper-nav {
+      background: rgba(13, 21, 34, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      overflow-x: auto;
+    }
+
+    .stepper-steps {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted-foreground);
+      cursor: default;
+      user-select: none;
+      pointer-events: none;
+      transition: all 0.15s ease;
+    }
+
+    .step-item.active {
+      background: rgba(17, 26, 40, 0.95);
+      border-color: var(--primary);
+      color: var(--foreground);
+      box-shadow: 0 0 14px rgba(0, 229, 163, 0.14);
+    }
+
+    .step-item.completed {
+      color: var(--foreground);
+    }
+
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--muted-foreground);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-item.active .step-num {
+      background: var(--primary);
+      color: var(--primary-foreground);
+      box-shadow: 0 0 8px rgba(0, 229, 163, 0.5);
+    }
+
+    .step-item.completed .step-num {
+      background: var(--accent-dim);
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .step-text {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .step-chevron {
+      color: #3e536d;
+      font-size: 11px;
+    }
+
+    /* ==========================================================================
+   MAIN WORKSPACE & INFORMATIVE BANNERS
+   ========================================================================== */
+    main {
+      flex: 1;
+      max-width: 1720px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 28px;
+    }
+
+    .flow-banner {
+      background: linear-gradient(90deg, rgba(14, 22, 34, 0.95), rgba(10, 16, 26, 0.95));
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .flow-banner-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      border: 1px solid rgba(0, 229, 163, 0.25);
+    }
+
+    .flow-banner-text h3 {
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--foreground);
+    }
+
+    .flow-banner-text p {
+      font-size: 12px;
+      color: var(--muted-foreground);
+      margin-top: 1px;
+    }
+
+    .nfiq-legend {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(13, 21, 34, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 10px 18px;
+      margin-bottom: 20px;
+      font-size: 11.5px;
+      flex-wrap: wrap;
+    }
+
+    .nfiq-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .nfiq-pill {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-xs);
+    }
+
+    /* ==========================================================================
+   SHADCN CARDS & PANELS
+   ========================================================================== */
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-md);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .panel:hover {
+      border-color: var(--border-light);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .panel-title h2 {
+      font-size: 14.5px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--foreground);
+      text-transform: uppercase;
+    }
+
+    .panel-title .step-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--primary);
+      background: var(--accent-dim);
+      border: 1px solid rgba(0, 229, 163, 0.3);
+      padding: 2px 8px;
+      border-radius: var(--radius-xs);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .row.wrap {
+      flex-wrap: wrap;
+    }
+
+    .row.spread {
+      justify-content: space-between;
+    }
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Passport Form Grid */
+    .passport-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .passport-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .passport-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==========================================================================
+   OPTICAL PLATEN & CANVASES (100% LOSSLESS CRUNCH PRESERVATION)
+   ========================================================================== */
+    .platen-container {
+      background: #020609;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.85);
+    }
+
+    #platen {
+      display: block;
+      width: 100%;
+      max-height: 520px;
+      object-fit: contain;
+      aspect-ratio: 1600 / 1500;
+      background: radial-gradient(circle at center, #071018 0%, #020508 100%);
+      transition: filter 0.2s ease;
+    }
+
+    .platen-overlay-grid {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0, 229, 163, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 163, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .platen-reticle {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(0, 229, 163, 0.85);
+      background: rgba(4, 9, 14, 0.85);
+      border: 1px solid rgba(0, 229, 163, 0.25);
+      padding: 4px 9px;
+      border-radius: var(--radius-xs);
+      pointer-events: none;
+      letter-spacing: 0.5px;
+    }
+
+    .beam {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary);
+      box-shadow: 0 0 28px 8px rgba(0, 229, 163, 0.7);
+      display: none;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @keyframes platen-scan {
+      0% {
+        top: 0%;
+        opacity: 0.2;
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      100% {
+        top: 100%;
+        opacity: 0.2;
+      }
+    }
+
+    .scanning .beam {
+      display: block;
+      animation: platen-scan 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* ==========================================================================
+   SEGMENTED FINGER CARDS (100% LOSSLESS CRUNCH)
+   ========================================================================== */
+    .finger-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .finger-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .finger {
+      background: var(--muted);
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .finger:hover {
+      border-color: var(--border-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .finger-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .finger-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--foreground);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .finger canvas,
+    #platen,
+    .comparison-card canvas {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      image-rendering: pixelated;
+    }
+
+    .finger canvas {
+      width: 100%;
+      height: 160px;
+      object-fit: contain;
+      background: #f1f5f9;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .finger-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted-foreground);
+    }
+
+    /* ==========================================================================
+   BORDER MATCHER COMPARISON CARDS
+   ========================================================================== */
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .comparison-card {
+      background: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .comparison-card canvas {
+      width: 100%;
+      height: 190px;
+      object-fit: contain;
+      background: #02070c;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .gauge {
+      height: 10px;
+      background: #111a28;
+      border-radius: 9999px;
+      overflow: hidden;
+      margin: 12px 0;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .gauge>div {
+      background: linear-gradient(90deg, #38bdf8, var(--primary));
+      height: 100%;
+      width: 0%;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 10px rgba(0, 229, 163, 0.5);
+    }
+
+    .score {
+      font-family: var(--font-mono);
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--foreground);
+    }
+
+    /* ==========================================================================
+   SHADCN DATA TABLES
+   ========================================================================== */
+    .table-wrap {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+
+    th {
+      background: rgba(14, 21, 34, 0.85);
+      text-align: left;
+      color: var(--muted-foreground);
+      font-weight: 600;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--foreground);
+    }
+
+    tbody tr {
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    tbody tr.selected {
+      background: rgba(0, 229, 163, 0.1);
+      border-left: 3px solid var(--primary);
+    }
+
+    /* ==========================================================================
+   DOSSIER CERTIFICATE BOX
+   ========================================================================== */
+    .dossier-card {
+      background: linear-gradient(135deg, rgba(14, 24, 38, 0.9), rgba(10, 16, 25, 0.9));
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dossier-header-title {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--cyan);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .dossier-passport-title {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin: 3px 0;
+    }
+
+    .dossier-meta {
+      font-size: 12px;
+      color: var(--muted-foreground);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+   TOAST NOTIFICATIONS
+   ========================================================================== */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .toast {
+      pointer-events: auto;
+      background: rgba(14, 22, 35, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      color: var(--foreground);
+      font-size: 12.5px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toast-in 0.25s ease-out;
+      min-width: 270px;
+      max-width: 420px;
+    }
+
+    .toast.success {
+      border-left: 4px solid var(--primary);
+    }
+
+    .toast.error {
+      border-left: 4px solid var(--danger);
+    }
+
+    .toast.info {
+      border-left: 4px solid var(--cyan);
+    }
+
+    @keyframes toast-in {
+      from {
+        transform: translateX(40px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* ==========================================================================
+   PASSPORT INGESTION DROPZONE
+   ========================================================================== */
+    .dropzone {
+      border: 2px dashed rgba(56, 189, 248, 0.4);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(11, 17, 26, 0.6);
+    }
+
+    .dropzone:hover,
+    .dropzone.dragover {
+      border-color: var(--primary);
+      background: rgba(0, 229, 163, 0.06);
+      transform: translateY(-1px);
+    }
+
+    .field-highlight {
+      animation: field-pulse 1.6s ease-out;
+    }
+
+    @keyframes field-pulse {
+      0% {
+        border-color: var(--primary);
+        box-shadow: 0 0 10px rgba(0, 229, 163, 0.6);
+      }
+
+      50% {
+        border-color: var(--cyan);
+        box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+      }
+
+      100% {
+        border-color: var(--border);
+        box-shadow: none;
+      }
+    }
+
+    /* ==========================================================================
+   SHADCN DIALOGS & MODALS
+   ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 13, 0.78);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 90;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: var(--card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      max-width: 820px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-dialog);
+      display: flex;
+      flex-direction: column;
+      transform: scale(0.97);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-body {
+      padding: 24px;
+      flex: 1;
+    }
+
+    .modal-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 16, 25, 0.6);
+      border-bottom-left-radius: var(--radius-lg);
+      border-bottom-right-radius: var(--radius-lg);
+    }
+
+    .auth-popover {
+      position: absolute;
+      top: 100%;
+      right: 28px;
+      margin-top: 8px;
+      background: var(--card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: var(--shadow-lg);
+      width: 320px;
+      z-index: 60;
+      display: none;
+    }
+
+    .auth-popover.open {
+      display: block;
+    }
+
+    .hand-guide-box {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      margin-top: 14px;
+    }
+
+    .hand-svg-wrap {
+      width: 90px;
+      height: 70px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-flag" title="Hellenic Republic / Schengen Visa Protocol">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M12 2v20M2 12h20M4 6h16M4 18h16" />
+        </svg>
+      </div>
+      <div class="brand-title">
+        <h1>Hellenic Republic · Greece Visa Biometrics <span class="badge-vis">SCHENGEN VIS 4-4-2</span></h1>
+        <span>Consular & Border Post Biometric Enrollment Station (10-Print Composite)</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="capsule" title="Database Connection Status">
+        <div class="status-dot" id="dbDot"></div>
+        <span id="mongoStatusBadge">Database: Connected</span>
+      </div>
+
+      <a href="/database" class="btn primary sm"
+        style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; font-size:12px; padding:6px 14px; border-radius:var(--radius-sm);"
+        title="Open Central Biometric Database Center">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <ellipse cx="12" cy="5" rx="9" ry="3" />
+          <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+        </svg>
+        Database Center
+      </a>
+
+      <!-- Hidden Backing Elements to preserve JS handlers without header visual clutter -->
+      <div style="display:none;" aria-hidden="true">
+        <span id="engineInfo"></span>
+        <span id="matcherBadge" class="badge"></span>
+        <button id="btnTour"></button>
+        <button id="btnInfograph"></button>
+        <button id="btnAuthToggle"></button>
+        <button id="connect"></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Auth Popover -->
+  <div id="authPopover" class="auth-popover">
+    <div style="font-weight:700; margin-bottom:8px; font-size:13px">Workstation Authentication</div>
+    <p style="font-size:11px; color:var(--text-muted); margin-bottom:12px">Enter the Bearer token configured on this
+      workstation (held in page session memory).</p>
+    <label for="token">Bearer Token</label>
+    <input id="token" type="password" autocomplete="off" placeholder="API token, if configured"
+      style="margin-bottom:12px">
+    <div class="row spread">
+      <button id="btnSaveAuth" class="primary sm" style="width:100%">Apply Token</button>
+    </div>
+  </div>
+
+  <!-- Process Stepper Navigation: Non-clickable visual progress indicator -->
+  <nav class="stepper-nav" aria-label="Visa Biometric Enrollment Protocol">
+    <ul class="stepper-steps">
+      <li class="step-item active" data-step="1" id="stepTab1">
+        <span class="step-num">1</span>
+        <span class="step-text">01. Passport Intake</span>
+        <span class="step-chevron">›</span>
+      </li>
+      <li class="step-item" data-step="2" id="stepTab2">
+        <span class="step-num">2</span>
+        <span class="step-text">02. Right Four Slap (4)</span>
+        <span class="step-chevron">›</span>
+      </li>
+      <li class="step-item" data-step="3" id="stepTab3">
+        <span class="step-num">3</span>
+        <span class="step-text">03. Left Four Slap (4)</span>
+        <span class="step-chevron">›</span>
+      </li>
+      <li class="step-item" data-step="4" id="stepTab4">
+        <span class="step-num">4</span>
+        <span class="step-text">04. Dual Thumbs (2)</span>
+        <span class="step-chevron">›</span>
+      </li>
+      <li class="step-item" data-step="5" id="stepTab5">
+        <span class="step-num">5</span>
+        <span class="step-text">05. Biometric Dossier</span>
+        <span class="step-chevron">›</span>
+      </li>
+      <li class="step-item" data-step="6" id="stepTab6">
+        <span class="step-num">6</span>
+        <span class="step-text">06. AFIS Verification</span>
+      </li>
+    </ul>
+
+    <div style="display:flex; align-items:center; gap:8px">
+      <span class="badge blue" id="activeGroupBadge">STEP 1: PASSPORT DATA</span>
+    </div>
+  </nav>
+
+  <main>
+    <!-- NFIQ Quality Legend Banner (Visible across all steps) -->
+    <div class="nfiq-legend">
+      <strong style="color:var(--text-main); margin-right:4px">NIST NFIQ Standards:</strong>
+      <div class="nfiq-legend-item">
+        <span class="nfiq-pill"
+          style="background:var(--accent-dim); color:var(--primary); border:1px solid rgba(0,229,163,0.4)">NFIQ
+          1–2</span>
+        <span>PASS (High Quality)</span>
+      </div>
+      <div class="nfiq-legend-item">
+        <span class="nfiq-pill"
+          style="background:var(--warning-dim); color:var(--warning); border:1px solid rgba(251,191,36,0.4)">NFIQ
+          3</span>
+        <span>PASS (Marginal)</span>
+      </div>
+      <div class="nfiq-legend-item">
+        <span class="nfiq-pill"
+          style="background:var(--danger-dim); color:var(--danger); border:1px solid rgba(244,63,94,0.4)">NFIQ
+          4–5</span>
+        <span style="color:var(--danger)">RECAPTURE (Fail — Enrollment Blocked)</span>
+      </div>
+    </div>
+
+    <div id="status" role="status" aria-live="polite" style="display:none">Ready to connect.</div>
+
+    <div id="mainLayout" style="max-width: 1200px; margin: 0 auto;">
+
+      <!-- STEP 01: Passport & Personal Data Intake -->
+      <div class="panel" id="panelStep1">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="step-tag">PHASE 01</span>
+            <h2>Passport Identification (Schengen VIS Standard)</h2>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <button id="btnOpenPassportModal" class="primary sm"
+              style="background:linear-gradient(135deg, rgba(56,189,248,0.25), rgba(0,229,163,0.25)); border:1px solid rgba(56,189,248,0.4); color:#fff; display:flex; align-items:center; gap:6px;">
+              <span>🛂</span> Auto-Fill via Passport Scan / PDF
+            </button>
+            <button id="btnFillSample" class="ghost sm" style="color:var(--cyan)">⚡ Sample Data</button>
+          </div>
+        </div>
+
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px">
+          All fields correspond directly to the applicant's travel passport. Data is validated and synchronized to the
+          biometric database.
+        </p>
+
+        <!-- Compact MRZ Extracted Preview Badge (visible only after upload) -->
+        <div id="mrzExtractionBadge"
+          style="display:none; margin-bottom:16px; padding:10px 14px; background:rgba(0,229,163,0.08); border:1px solid rgba(0,229,163,0.3); border-radius:var(--radius-sm);">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="color:var(--accent); font-size:15px;">✓</span>
+              <span id="mrzBadgeTitle" style="font-weight:700; font-size:12px; color:var(--accent);">
+                Passport Successfully Extracted & Validated
+              </span>
+              <span id="mrzMethodTag" class="tag"
+                style="background:rgba(56,189,248,0.15); color:var(--cyan); font-size:10.5px;"></span>
+            </div>
+            <button id="btnToggleMrzRaw" class="ghost sm" style="font-size:10.5px; padding:2px 8px;">View MRZ
+              Lines</button>
+          </div>
+          <div id="mrzRawDisplay"
+            style="display:none; margin-top:8px; font-family:var(--font-mono); font-size:11px; color:#cbd5e1; background:rgba(0,0,0,0.5); padding:8px 12px; border-radius:4px; letter-spacing:1px; white-space:pre-wrap;">
+          </div>
+        </div>
+
+        <div class="passport-grid">
+          <div>
+            <label for="passport_number">Passport Number *</label>
+            <input id="passport_number" maxlength="20" placeholder="e.g. GR9842105" required>
+          </div>
+          <div>
+            <label for="surname">Surname / Family Name *</label>
+            <input id="surname" maxlength="100" placeholder="e.g. PAPADOPOULOS" required>
+          </div>
+          <div>
+            <label for="given_names">Given Names / First Name *</label>
+            <input id="given_names" maxlength="100" placeholder="e.g. NIKOLAOS" required>
+          </div>
+          <div>
+            <label for="nationality">Nationality / Issuing State *</label>
+            <input id="nationality" maxlength="50" value="GRC" placeholder="e.g. GRC - Greece">
+          </div>
+          <div>
+            <label for="date_of_birth">Date of Birth (YYYY-MM-DD) *</label>
+            <input id="date_of_birth" type="date" value="1992-06-15" required>
+          </div>
+          <div>
+            <label for="gender">Gender / Sex *</label>
+            <select id="gender">
+              <option value="M">M - Male</option>
+              <option value="F">F - Female</option>
+              <option value="X">X - Unspecified</option>
+            </select>
+          </div>
+          <div>
+            <label for="passport_expiry">Passport Expiry Date *</label>
+            <input id="passport_expiry" type="date" value="2032-06-14">
+          </div>
+          <div>
+            <label for="visa_ref">Visa Reference Number</label>
+            <input id="visa_ref" placeholder="e.g. GR-VIS-2026-8941" value="GR-VIS-2026-8941">
+          </div>
+          <div>
+            <label for="visa_type">Visa Application Category</label>
+            <select id="visa_type">
+              <option value="SCHENGEN_C_TOURIST">Schengen C · Short Stay (Tourism / Business)</option>
+              <option value="NATIONAL_D_EMPLOYMENT">National D · Long Stay (Employment / Study)</option>
+              <option value="AIRPORT_TRANSIT_A">Airport Transit A</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Hidden standard name field for backward compatibility -->
+        <input id="name" type="hidden" value="NIKOLAOS PAPADOPOULOS">
+
+        <!-- Navigation buttons at bottom -->
+        <div class="row spread" style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border)">
+          <button id="btnResetAll1" class="ghost sm">🔄 Reset Form</button>
+          <button id="btnLockPassport" class="primary">
+            Confirm & Lock Passport Data ➔ Proceed to Right Four (4) ›
+          </button>
+        </div>
+      </div>
+
+      <!-- STEPS 02, 03, 04: Biometric Acquisition (Right Four, Left Four, Dual Thumbs) -->
+      <div class="panel" id="panelBiometrics" style="display:none">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="step-tag" id="bioStepTag">PHASE 02</span>
+            <h2 id="bioStepTitle">Right Four Slap Acquisition</h2>
+          </div>
+          <div class="row" style="gap:8px">
+            <span id="provenance" class="badge">NO CAPTURE</span>
+            <span id="qualitySummary" class="badge">NO ASSESSMENT</span>
+          </div>
+        </div>
+
+        <!-- Group Mode & Parameters Controls -->
+        <div class="row wrap"
+          style="margin-bottom:12px; background:var(--bg-surface); padding:12px 16px; border-radius:var(--radius-md); border:1px solid var(--border)">
+          <label style="flex: 1.2; min-width: 200px">Active Biometric Group
+            <select id="mode">
+              <option value="right4">Right Four · Index → Little (4)</option>
+              <option value="left4">Left Four · Little → Index (4)</option>
+              <option value="thumbs">Dual Thumbs · Left → Right (2)</option>
+            </select>
+          </label>
+          <label style="flex: 1.5; min-width: 250px">Hardware Acquisition Source
+            <select id="captureSource">
+              <option value="client_morphs">🔌 Client Hardware (Mantra MORPHS USB)</option>
+              <option value="server">🖥️ Server Workstation Engine (Docker Host)</option>
+            </select>
+          </label>
+          <label style="flex: 1; min-width: 120px" id="lblSkinState">Skin Contact State
+            <select id="skin">
+              <option value="normal">Normal</option>
+              <option value="dry">Dry</option>
+              <option value="moist">Moist</option>
+            </select>
+          </label>
+          <label style="flex: 1; min-width: 120px" id="lblSimIdentity">Simulation Identity
+            <input id="identity" type="number" min="0" max="2147483647" value="1">
+          </label>
+        </div>
+
+        <!-- Client MORPHS Hardware Discovery & Status Card -->
+        <div id="clientScannerStatusCard" style="margin-bottom:14px; background:rgba(14,24,38,0.75); border:1px solid rgba(56,189,248,0.25); border-radius:var(--radius-sm); padding:10px 16px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+          <div style="display:flex; flex-direction:column; gap:3px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="status-dot" id="clientScannerDot" style="background:#fbbf24;"></span>
+              <span id="clientScannerText" style="font-size:12px; font-weight:600; color:var(--text-main);">
+                Mantra MORPHS Client Service: Detecting local device (127.0.0.1:11100)...
+              </span>
+            </div>
+            <span id="clientScannerHelp" style="font-size:11px; color:var(--text-muted); display:none;">
+              💡 <strong>Windows Setup:</strong> Ensure <em>Mantra RD Service</em> is running in Windows Services, and in Chrome/Edge click 🎚️ <em>Site Settings ➔ Insecure content: Allow</em>.
+            </span>
+          </div>
+          <button id="btnCheckClientScanner" class="btn ghost sm" type="button" style="font-size:11px; padding:3px 10px;">
+            ⚡ Test Scanner Connection
+          </button>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row wrap" style="gap:10px; margin-bottom:16px">
+          <button id="capture" class="primary" style="flex:1.5; padding:10px 16px; font-size:13px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+              <circle cx="12" cy="13" r="4" />
+            </svg>
+            <span id="captureBtnText">Capture Right Four Slap</span>
+          </button>
+          <button id="live" style="flex:1">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="10" />
+              <polygon points="10 8 16 12 10 16 10 8" />
+            </svg>
+            Start Live Preview
+          </button>
+          <button id="segment" class="secondary" style="flex:1.2" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <polyline points="16 6 12 2 8 6" />
+              <line x1="12" y1="2" x2="12" y2="15" />
+            </svg>
+            Segment & Assess Quality
+          </button>
+          <label style="flex:0 1 auto; margin-bottom:0">
+            <span style="display:inline-block; margin-bottom:2px">Import 500 DPI PNG</span>
+            <input id="upload" type="file" accept="image/png" style="padding:4px 8px">
+          </label>
+        </div>
+
+        <!-- Platen Canvas Area -->
+        <div class="platen-container" id="platenWrap">
+          <canvas id="platen" width="1600" height="1500" aria-label="Slap image and segmentation boxes"></canvas>
+          <div class="platen-overlay-grid"></div>
+          <div class="platen-reticle">500 DPI · OPTICAL FAP-60 · 8-BIT GRAYSCALE</div>
+          <div class="beam"></div>
+        </div>
+
+        <div class="row spread" style="margin-top:12px; align-items:center;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:11px; color:var(--text-muted)">1600 × 1500 px · 500 DPI · Appendix F Certified
+              Frame</span>
+            <span class="badge green" style="font-size:9.5px; padding:2px 7px;">100% LOSSLESS OPTICAL CAPTURE</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <button id="btnDlFullSlap" class="ghost sm" style="display:none; font-size:11px; padding:3px 8px;"
+              title="Download current 1600x1500 uncompressed 500 DPI optical capture lossless">
+              ⇩ Download Full Optical Slap (Lossless PNG)
+            </button>
+            <span id="captureClock" class="badge">Awaiting Acquisition</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Hand Placement Indicator -->
+        <div class="hand-guide-box">
+          <div class="hand-svg-wrap">
+            <svg viewBox="0 0 120 90" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" style="width:100%; height:100%; color:var(--accent)">
+              <path
+                d="M 20 75 C 20 60, 25 50, 25 45 C 25 35, 23 25, 27 25 C 30 25, 30 35, 32 45 C 33 30, 35 15, 39 15 C 43 15, 43 30, 44 45 C 46 25, 48 18, 52 18 C 55 18, 55 28, 54 48 C 56 35, 59 32, 62 35 C 65 38, 63 50, 60 62 C 58 72, 50 82, 40 85 Z"
+                opacity="0.25" id="leftHandPath" />
+              <path
+                d="M 100 75 C 100 60, 95 50, 95 45 C 95 35, 97 25, 93 25 C 90 25, 90 35, 88 45 C 87 30, 85 15, 81 15 C 77 15, 77 30, 76 45 C 74 25, 72 18, 68 18 C 65 18, 65 28, 66 48 C 64 35, 61 32, 58 35 C 55 38, 57 50, 60 62 C 62 72, 70 82, 80 85 Z"
+                id="rightHandPath" />
+            </svg>
+          </div>
+          <div>
+            <h4 id="placementTitle" style="font-size:12.5px; font-weight:700">Right Four Slap Position</h4>
+            <p id="placementDesc" style="font-size:11.5px; color:var(--text-muted)">Place Right Index, Middle, Ring, and
+              Little fingers flat across the platen simultaneously.</p>
+          </div>
+        </div>
+
+        <!-- Segmented Fingers Grid -->
+        <div style="margin-top:20px">
+          <div
+            style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+            <h3 style="font-size:13px; font-weight:700">Segmented Finger Quality Breakdown (NIST NFIQ · 500 DPI
+              Lossless)</h3>
+            <button id="btnDlCurrentGroup" class="btn cyan sm" style="display:none; font-size:11px; padding:3px 10px;"
+              title="Download all fingers in this group as 100% lossless 500 DPI PNGs">
+              📦 Download All Group Fingers (100% Lossless)
+            </button>
+          </div>
+          <div id="fingers" class="finger-grid">
+            <div
+              style="grid-column: 1 / -1; text-align:center; padding: 30px 20px; color: var(--text-dim); background: var(--bg-surface); border: 1px dashed var(--border); border-radius: var(--radius-md);">
+              Capture or import slap image, then trigger "Segment & Assess Quality".
+            </div>
+          </div>
+        </div>
+
+        <!-- Group Approval Progression Actions at Bottom -->
+        <div class="row spread" style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border)">
+          <button id="enroll" class="primary" disabled style="display:none">Enroll</button>
+          <button id="append" class="secondary" disabled style="display:none">Append</button>
+          <button id="btnBioBack" class="ghost sm">‹ Previous Step</button>
+          <div style="display:flex; align-items:center; gap:12px">
+            <span id="groupProgressMsg" style="font-size:12px; color:var(--text-muted)">Complete segmentation and ensure
+              all fingers achieve NFIQ ≤ 3.</span>
+            <button id="btnProceedGroup" class="primary" disabled>
+              Approve Right Four & Proceed to Left Four ➔
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 05: Consular Dossier Summary & Database Record -->
+      <div class="panel" id="panelStep5" style="display:none">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="step-tag">PHASE 05</span>
+            <h2>Visa Biometric Dossier & Central Vault</h2>
+          </div>
+          <span class="badge green">VERIFIED & COMMITTED</span>
+        </div>
+
+        <!-- Dossier Summary Card -->
+        <div class="dossier-card">
+          <div>
+            <div class="dossier-header-title">SCHENGEN VISA BIOMETRIC RECORD · HELLENIC REPUBLIC</div>
+            <div class="dossier-passport-title" id="dossierPassport">PASSPORT: GR9842105</div>
+            <div class="dossier-meta">
+              <strong>Applicant:</strong> <span id="dossierName">NIKOLAOS PAPADOPOULOS</span><br>
+              <strong>Nationality:</strong> <span id="dossierNat">GRC</span> · <strong>DOB:</strong> <span
+                id="dossierDob">1992-06-15</span><br>
+              <strong>Visa Ref:</strong> <span id="dossierRef">GR-VIS-2026-8941</span> · <strong>Station:</strong>
+              ATH-CONSULAR-01
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:var(--font-mono); font-size:24px; font-weight:700; color:var(--accent)"
+              id="dossierFingersCount">10 / 10</div>
+            <div style="font-size:11px; color:var(--text-muted)">Fingers Collected</div>
+            <div style="margin-top:8px">
+              <span class="badge green">NFIQ COMPLIANT</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 100% Lossless Complete Export Package -->
+        <div class="row spread"
+          style="margin-top:14px; background:var(--bg-surface); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:14px 18px; align-items:center;">
+          <div>
+            <div style="font-size:13px; font-weight:700; color:#fff; display:flex; align-items:center; gap:8px;">
+              <span>100% Lossless 10-Print Archive Package</span>
+              <span class="badge green" style="font-size:9.5px">500 DPI OPTICAL MASTER</span>
+            </div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">
+              Download all 10 enrolled fingers as uncompressed, lossless 500 DPI optical plates with JSON manifest.
+            </div>
+          </div>
+          <button id="btnDownload10PrintLossless" class="primary sm"
+            style="background:var(--greek-blue); border-color:var(--cyan); color:#fff;">
+            📦 Download 10-Print Dossier (100% Lossless ZIP)
+          </button>
+        </div>
+
+        <!-- Enrolled Dossiers Database Table -->
+        <div style="margin-top:22px">
+          <div class="row spread" style="margin-bottom:10px">
+            <h3 style="font-size:13px; font-weight:700">Enrolled Biometric Dossiers</h3>
+            <button id="refresh" class="ghost sm">🔄 Refresh Records</button>
+          </div>
+          <div class="table-wrap" style="max-height: 240px; overflow-y: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:70px">ID</th>
+                  <th>Identity Name</th>
+                  <th style="width:100px">Fingers</th>
+                  <th style="width:140px">Provenance</th>
+                </tr>
+              </thead>
+              <tbody id="subjects">
+                <tr>
+                  <td colspan="4" style="text-align:center; padding:20px; color:var(--text-dim)">Loading records…</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Bottom navigation actions -->
+        <div class="row spread" style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border)">
+          <button id="btnResetAll5" class="ghost sm">🔄 Start New Applicant Intake</button>
+          <button id="btnProceedToMatcher" class="primary">
+            Proceed to 1:1 Verification & Border Matcher ›
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 06: Matcher & Border Verification -->
+      <div class="panel" id="panelStep6" style="display:none">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="step-tag">PHASE 06</span>
+            <h2>SourceAFIS Border Control Matcher (1:1 & 1:N)</h2>
+          </div>
+          <span id="decision" class="badge">AWAITING PROBE</span>
+        </div>
+
+        <div class="row wrap" style="margin-bottom:14px">
+          <label style="flex:1; min-width:140px">Operation
+            <select id="kind">
+              <option value="1:1">1:1 Verification (Selected Subject)</option>
+              <option value="1:N">1:N Database Search (Full Registry)</option>
+            </select>
+          </label>
+          <label style="flex:1; min-width:140px">Matching Threshold
+            <input id="threshold" type="number" min="1" max="10000" step="1" value="40">
+          </label>
+          <div style="flex:1; display:flex; align-items:flex-end">
+            <button id="verify" class="primary" style="width:100%" disabled>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
+              </svg>
+              Run Comparison
+            </button>
+          </div>
+        </div>
+
+        <div style="font-size:11.5px; color:var(--text-muted); margin-bottom:14px" id="selectedSubject">
+          Select an enrolled identity from the registry for 1:1 verification.
+        </div>
+
+        <div class="comparison">
+          <div class="comparison-card">
+            <div class="row spread">
+              <span style="font-size:11px; font-weight:700; color:var(--text-muted)">PROBE FINGER (CURRENT)</span>
+            </div>
+            <canvas id="probe" width="400" height="500"></canvas>
+          </div>
+          <div class="comparison-card">
+            <div class="row spread">
+              <span style="font-size:11px; font-weight:700; color:var(--cyan)" id="candidateLabel">ENROLLED
+                FINGER</span>
+            </div>
+            <canvas id="candidate" width="400" height="500"></canvas>
+          </div>
+        </div>
+
+        <div class="row spread" style="margin-top:16px; align-items:flex-end">
+          <div>
+            <span
+              style="font-size:10px; font-family:var(--font-mono); color:var(--text-muted); display:block">SIMILARITY
+              SCORE</span>
+            <span class="score" id="score">—</span>
+          </div>
+          <div style="text-align:right">
+            <span style="font-size:11px; color:var(--text-muted); display:block; margin-bottom:4px" id="resultText">
+              Scores express similarity, not a probability of identity.
+            </span>
+          </div>
+        </div>
+
+        <div class="gauge">
+          <div id="gauge"></div>
+        </div>
+        <div id="hits"></div>
+
+        <!-- Bottom actions -->
+        <div class="row spread" style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border)">
+          <button id="btnMatcherBack" class="ghost sm">‹ Back to Dossier</button>
+          <button id="btnResetAll6" class="ghost sm">🔄 Start New Applicant Intake</button>
+        </div>
+      </div>
+
+      <!-- Activity Log Panel -->
+      <div class="panel" id="panelLog">
+        <div class="panel-header">
+          <div class="panel-title">
+            <h2>Session Activity & Audit Log</h2>
+          </div>
+          <button id="btnClearLog" class="ghost sm" style="padding:2px 8px">Clear Log</button>
+        </div>
+        <div
+          style="background:#04090e; border:1px solid var(--border); border-radius:var(--radius-md); padding:10px 14px">
+          <div id="log"
+            style="max-height:130px; overflow-y:auto; font-family:var(--font-mono); font-size:11px; color:var(--text-muted); line-height:1.6">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Passport Upload Popup Modal -->
+  <div id="modalPassportUpload" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box" style="max-width: 580px;">
+      <div class="modal-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:20px;">🛂</span>
+          <div>
+            <h3 style="font-size:15px; font-weight:700; color:var(--text-main); margin:0;">Automated Passport Ingestion
+            </h3>
+            <span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono);">ICAO Doc 9303 TD3
+              Extraction & Verification</span>
+          </div>
+        </div>
+        <button id="btnClosePassportModal" class="ghost sm">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 22px 24px;">
+        <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:16px; line-height:1.5;">
+          Upload travel passport (PDF e-document, mobile camera photo, or flatbed scan). The system will automatically
+          decode MRZ lines and populate all personal data fields.
+        </p>
+
+        <div id="passportDropzone" class="dropzone" style="padding: 28px 20px;">
+          <input type="file" id="passportFileInput" accept=".pdf,.png,.jpg,.jpeg,.bmp,.tiff,.webp" style="display:none">
+          <div style="font-size: 34px; margin-bottom: 8px;">📄</div>
+          <div style="font-weight: 600; font-size: 14px; color: var(--text-main);">
+            Drag & drop passport file here, or <span style="color:var(--cyan); text-decoration:underline;">browse to
+              upload</span>
+          </div>
+          <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+            Supports PDF, JPG, PNG, TIFF · Sub-second extraction
+          </div>
+        </div>
+
+        <div id="passportUploadStatus"
+          style="display:none; margin-top: 14px; background: rgba(4,9,14,0.85); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 12px 16px; text-align: left;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span id="passportStatusText" style="font-size: 12px; font-weight: 700; color: var(--cyan);">
+              ⚡ Ingesting document...
+            </span>
+            <span id="passportStatusTimer"
+              style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); font-weight: 700;">
+              0.0s
+            </span>
+          </div>
+          <div
+            style="height: 4px; background: rgba(56,189,248,0.15); border-radius: 2px; overflow: hidden; position: relative; margin-bottom: 6px;">
+            <div id="passportProgressBar"
+              style="height: 100%; width: 25%; background: linear-gradient(90deg, var(--cyan), var(--accent)); transition: width 0.25s ease;">
+            </div>
+          </div>
+          <div id="passportStatusSubtext"
+            style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">
+            [Phase 1/3] Preparing image buffer...
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: flex-end; gap:10px;">
+        <button id="btnClosePassportModalBtn" class="ghost sm">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Walkthrough Modal -->
+  <div id="modalTour" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-size:15px; font-weight:700">Greece Visa 10-Print Biometric Protocol</h3>
+        <button id="btnCloseTourX" class="ghost sm">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="text-align:center; padding:10px 0 16px">
+          <div style="font-size:14px; font-weight:700; color:var(--cyan); margin-bottom:6px">Schengen Visa Information
+            System (VIS) Protocol</div>
+          <p style="font-size:12px; color:var(--text-muted); line-height:1.6">
+            1. <strong>Passport Intake</strong>: First capture and lock applicant's passport demographics.<br>
+            2. <strong>Right Four Slap</strong>: Capture Right Index, Middle, Ring, Little (NFIQ 1–2 Pass, 3 Marginal,
+            4–5 Recapture).<br>
+            3. <strong>Left Four Slap</strong>: Capture Left Little, Ring, Middle, Index with identical quality
+            threshold.<br>
+            4. <strong>Dual Thumbs</strong>: Capture Left Thumb & Right Thumb simultaneously.<br>
+            5. <strong>Central Database Storage</strong>: Atomic enrollment into database collections.<br>
+            6. <strong>AFIS Matcher</strong>: 1:1 Verification against passport record or 1:N Border Control scan.
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span></span>
+        <button id="btnSkipTour" class="primary sm">Close Guide</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Graph Modal -->
+  <div id="modalInfograph" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box" style="max-width:880px">
+      <div class="modal-header">
+        <h3 style="font-size:15px; font-weight:700">4-4-2 Biometric Pipeline Info Graph</h3>
+        <button id="btnCloseInfographX" class="ghost sm">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px">
+          Optical Sensor (1600×1500 @ 500 DPI) ➔ Ridge Segmentation (NFSEG) ➔ Quality Gating (NFIQ ≤ 3) ➔ Feature
+          Extraction (SourceAFIS) ➔ Central Registry Vault ➔ Multi-Finger Matcher.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <span></span>
+        <button id="btnCloseInfograph" class="primary sm">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script>
+    'use strict';
+    const $ = id => document.getElementById(id);
+
+    let state = {
+      capture: null,
+      fingers: [],
+      subjects: [],
+      selected: null,
+      busy: false,
+      live: false,
+      impression: 0,
+      connected: false,
+      engine: null,
+      currentStep: 1, // 1 to 6
+      passportLocked: false,
+      collectedFingers: { right4: [], left4: [], thumbs: [] },
+      enrolledSubjectId: null
+    };
+
+    function showToast(message, type = 'info') {
+      const container = $('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast ' + type;
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 250);
+      }, 4000);
+    }
+
+    const status = (text, error = false) => {
+      $('status').textContent = text;
+      const line = document.createElement('div');
+      line.textContent = new Date().toLocaleTimeString() + '  ' + text;
+      if (error) line.style.color = '#f43f5e';
+      $('log').prepend(line);
+      while ($('log').children.length > 50) $('log').lastChild.remove();
+      showToast(text, error ? 'error' : 'info');
+    };
+
+    async function api(path, body) {
+      const headers = {};
+      if ($('token').value) headers.Authorization = 'Bearer ' + $('token').value;
+      if (body) headers['Content-Type'] = 'application/json';
+      const r = await fetch(path, {
+        method: body ? 'POST' : 'GET',
+        headers,
+        body: body ? JSON.stringify(body) : undefined
+      });
+      if (!r.ok) {
+        let message = 'Request failed (' + r.status + ')';
+        try {
+          const err = await r.json();
+          message = typeof err.detail === 'string' ? err.detail : JSON.stringify(err.detail);
+        } catch { }
+        throw new Error(message);
+      }
+      return r.json();
+    }
+
+    function setStep(stepNum) {
+      state.currentStep = Math.max(1, Math.min(6, stepNum));
+
+      // Update nav tabs (progress indicators only)
+      for (let i = 1; i <= 6; i++) {
+        const tab = $('stepTab' + i);
+        if (!tab) continue;
+        tab.classList.remove('active');
+        if (i < state.currentStep) tab.classList.add('completed');
+        else tab.classList.remove('completed');
+      }
+      const activeTab = $('stepTab' + state.currentStep);
+      if (activeTab) activeTab.classList.add('active');
+
+      // Hide all panels, show active
+      $('panelStep1').style.display = (state.currentStep === 1) ? 'block' : 'none';
+      $('panelBiometrics').style.display = (state.currentStep >= 2 && state.currentStep <= 4) ? 'block' : 'none';
+      $('panelStep5').style.display = (state.currentStep === 5) ? 'block' : 'none';
+      $('panelStep6').style.display = (state.currentStep === 6) ? 'block' : 'none';
+
+      // Configure Biometrics Panel depending on active step
+      if (state.currentStep === 2) {
+        $('activeGroupBadge').textContent = 'STEP 2: RIGHT FOUR (4)';
+        $('bioStepTag').textContent = 'PHASE 02';
+        $('bioStepTitle').textContent = 'Right Four Slap Acquisition (Index → Little)';
+        $('captureBtnText').textContent = 'Capture Right Four Slap';
+        $('mode').value = 'right4';
+        updateHandGuide();
+        $('flowTitle').textContent = 'Phase 2: Right Four Slap Acquisition';
+        $('flowDesc').textContent = 'Position applicant\'s Right Index, Middle, Ring, and Little fingers flat on platen. Ensure all NFIQ scores ≤ 3.';
+        $('btnProceedGroup').textContent = 'Approve Right Four & Proceed to Left Four (4) ➔';
+      } else if (state.currentStep === 3) {
+        $('activeGroupBadge').textContent = 'STEP 3: LEFT FOUR (4)';
+        $('bioStepTag').textContent = 'PHASE 03';
+        $('bioStepTitle').textContent = 'Left Four Slap Acquisition (Little → Index)';
+        $('captureBtnText').textContent = 'Capture Left Four Slap';
+        $('mode').value = 'left4';
+        updateHandGuide();
+        $('flowTitle').textContent = 'Phase 3: Left Four Slap Acquisition';
+        $('flowDesc').textContent = 'Position applicant\'s Left Little, Ring, Middle, and Index fingers flat on platen. Ensure all NFIQ scores ≤ 3.';
+        $('btnProceedGroup').textContent = 'Approve Left Four & Proceed to Dual Thumbs (2) ➔';
+      } else if (state.currentStep === 4) {
+        $('activeGroupBadge').textContent = 'STEP 4: DUAL THUMBS (2)';
+        $('bioStepTag').textContent = 'PHASE 04';
+        $('bioStepTitle').textContent = 'Dual Thumbs Acquisition (Left & Right Thumb)';
+        $('captureBtnText').textContent = 'Capture Dual Thumbs';
+        $('mode').value = 'thumbs';
+        updateHandGuide();
+        $('flowTitle').textContent = 'Phase 4: Dual Thumbs Slap Acquisition';
+        $('flowDesc').textContent = 'Position Left Thumb and Right Thumb flat on the center of the optical platen.';
+        $('btnProceedGroup').textContent = 'Approve Dual Thumbs & Finalize 10-Print Dossier ➔';
+      } else if (state.currentStep === 5) {
+        $('activeGroupBadge').textContent = 'STEP 5: BIOMETRIC DOSSIER';
+        $('flowTitle').textContent = 'Phase 5: Final Biometric Dossier Commit';
+        $('flowDesc').textContent = 'All 10 fingers acquired and verified. Dossier synchronized to Central Biometric Database.';
+        updateDossierCard();
+      } else if (state.currentStep === 6) {
+        $('activeGroupBadge').textContent = 'STEP 6: BORDER AFIS MATCH';
+        $('flowTitle').textContent = 'Phase 6: SourceAFIS Verification & Search';
+        $('flowDesc').textContent = 'Perform 1:1 identity verification or 1:N border database search against enrolled records.';
+      }
+
+      availability();
+    }
+
+    function updateDossierCard() {
+      const pNum = $('passport_number').value || 'GR9842105';
+      const sName = ($('given_names').value + ' ' + $('surname').value).trim() || 'NIKOLAOS PAPADOPOULOS';
+      $('dossierPassport').textContent = 'PASSPORT: ' + pNum.toUpperCase();
+      $('dossierName').textContent = sName.toUpperCase();
+      $('dossierNat').textContent = $('nationality').value || 'GRC';
+      $('dossierDob').textContent = $('date_of_birth').value || '1992-06-15';
+      $('dossierRef').textContent = $('visa_ref').value || 'GR-VIS-2026-8941';
+    }
+
+    function updateHandGuide() {
+      const mode = $('mode').value;
+      const leftHand = $('leftHandPath');
+      const rightHand = $('rightHandPath');
+      if (mode === 'right4') {
+        leftHand.style.opacity = '0.2';
+        rightHand.style.opacity = '1';
+        $('placementTitle').textContent = 'Right Four Finger Position';
+        $('placementDesc').textContent = 'Place Right Index, Middle, Ring, and Little fingers flat across the platen.';
+      } else if (mode === 'left4') {
+        leftHand.style.opacity = '1';
+        rightHand.style.opacity = '0.2';
+        $('placementTitle').textContent = 'Left Four Finger Position';
+        $('placementDesc').textContent = 'Place Left Little, Ring, Middle, and Index fingers flat across the platen.';
+      } else {
+        leftHand.style.opacity = '0.85';
+        rightHand.style.opacity = '0.85';
+        $('placementTitle').textContent = 'Dual Thumbs Position';
+        $('placementDesc').textContent = 'Place Left and Right thumbs side-by-side on the center of the platen.';
+      }
+    }
+
+    function availability() {
+      const c = !!state.capture;
+      const assessed = state.fingers.length > 0 && state.fingers.every(f => f.status === 'PASS');
+      for (const id of ['capture', 'refresh', 'connect']) {
+        if ($(id)) $(id).disabled = state.busy;
+      }
+      $('capture').disabled = state.busy || !state.connected;
+      $('segment').disabled = state.busy || !c || state.live;
+      $('enroll').disabled = state.busy || !assessed || state.live;
+      $('append').disabled = state.busy || !assessed || !state.selected || state.live;
+      $('verify').disabled = state.busy || !c || state.live;
+      $('mode').disabled = state.busy || state.live;
+      $('upload').disabled = state.busy || state.live;
+      $('live').disabled = state.busy && !state.live;
+
+      // Strict progression lock: only enable Approve if current group was captured & passed
+      $('btnProceedGroup').disabled = !assessed || state.busy;
+    }
+
+    async function work(fn) {
+      if (state.busy) return;
+      state.busy = true;
+      availability();
+      try {
+        await fn();
+      } catch (e) {
+        status(e.message, true);
+      } finally {
+        state.busy = false;
+        $('platenWrap').classList.remove('scanning');
+        availability();
+      }
+    }
+
+    function loadImage(base64) {
+      return new Promise((resolve, reject) => {
+        const im = new Image();
+        im.onload = () => resolve(im);
+        im.onerror = () => reject(new Error('Cannot render PNG'));
+        im.src = 'data:image/png;base64,' + base64;
+      });
+    }
+
+    function clearComparison() {
+      for (const id of ['probe', 'candidate']) {
+        const canvas = $(id);
+        if (canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+      }
+      $('score').textContent = '—';
+      $('gauge').style.width = '0%';
+      $('decision').textContent = 'AWAITING PROBE';
+      $('decision').className = 'badge';
+      $('hits').replaceChildren();
+      $('resultText').textContent = 'Scores express similarity, not a probability of identity.';
+    }
+
+    function resetAssessment() {
+      state.fingers = [];
+      $('fingers').replaceChildren();
+      const empty = document.createElement('div');
+      empty.style.cssText = 'grid-column: 1 / -1; text-align:center; padding: 30px 20px; color: var(--text-dim); background: var(--bg-surface); border: 1px dashed var(--border); border-radius: var(--radius-md);';
+      empty.textContent = 'Capture or import slap image, then trigger "Segment & Assess Quality".';
+      $('fingers').append(empty);
+      $('qualitySummary').textContent = 'NO ASSESSMENT';
+      $('qualitySummary').className = 'badge';
+      $('btnProceedGroup').disabled = true;
+      clearComparison();
+    }
+
+    async function drawPlaten() {
+      if (!state.capture) return;
+      const image = await loadImage(state.capture.image);
+      const canvas = $('platen');
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(image, 0, 0, 1600, 1500);
+
+      ctx.font = 'bold 28px "JetBrains Mono", monospace';
+      ctx.lineWidth = 4;
+      for (const f of state.fingers) {
+        const [x, y, w, h] = f.box;
+        ctx.strokeStyle = f.status === 'PASS' ? '#00e5a3' : '#f43f5e';
+        ctx.strokeRect(x, y, w, h);
+        ctx.fillStyle = f.status === 'PASS' ? 'rgba(0, 229, 163, 0.9)' : 'rgba(244, 63, 94, 0.9)';
+        ctx.fillRect(x, Math.max(0, y - 44), w, 44);
+        ctx.fillStyle = '#03140e';
+        ctx.fillText(f.finger_name, x + 10, Math.max(30, y - 12));
+      }
+    }
+
+    async function drawFit(canvas, base64) {
+      const image = await loadImage(base64);
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const ratio = Math.min(canvas.width / image.width, canvas.height / image.height);
+      const w = image.width * ratio;
+      const h = image.height * ratio;
+      const x = (canvas.width - w) / 2;
+      const y = (canvas.height - h) / 2;
+      ctx.drawImage(image, x, y, w, h);
+    }
+
+    function imagePayload() {
+      if (!state.capture) throw new Error('Capture or import a slap image first.');
+      return state.capture.capture_id
+        ? { capture_id: state.capture.capture_id, mode: state.capture.mode }
+        : { image: state.capture.image, mode: state.capture.mode };
+    }
+
+    function downloadFingerImageLossless(f) {
+      const byteChars = atob(f.image);
+      const byteNumbers = new Array(byteChars.length);
+      for (let i = 0; i < byteChars.length; i++) {
+        byteNumbers[i] = byteChars.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'image/png' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const nameSafe = f.finger_name.toLowerCase().replace(/ /g, '_');
+      a.download = `finger_${nameSafe}_500dpi_lossless.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      status('Downloaded 100% lossless 500 DPI plate: ' + f.finger_name);
+    }
+
+    function downloadFullSlapLossless() {
+      if (!state.capture || !state.capture.image) {
+        status('No capture frame available to download.', true);
+        return;
+      }
+      const byteChars = atob(state.capture.image);
+      const byteNumbers = new Array(byteChars.length);
+      for (let i = 0; i < byteChars.length; i++) {
+        byteNumbers[i] = byteChars.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'image/png' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `optical_slap_${state.capture.mode}_1600x1500_500dpi_lossless.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      status('Downloaded full optical slap (1600x1500 px @ 500 DPI 100% lossless).');
+    }
+
+    function downloadCurrentGroupLossless() {
+      if (!state.fingers || state.fingers.length === 0) {
+        status('No segmented fingers available to download.', true);
+        return;
+      }
+      state.fingers.forEach((f, idx) => {
+        setTimeout(() => downloadFingerImageLossless(f), idx * 250);
+      });
+      status(`Downloading all ${state.fingers.length} fingers as 100% lossless 500 DPI plates...`);
+    }
+
+    let clientMorphsPort = 11100;
+    let clientMorphsProtocol = 'http';
+    let clientMorphsReady = false;
+
+    async function checkMantraMorphsStatus() {
+      const statusText = $('clientScannerText');
+      const statusDot = $('clientScannerDot');
+      if (!statusText) return null;
+
+      statusText.textContent = 'Searching for local Mantra MORPHS RD Service (127.0.0.1:11100)...';
+      if (statusDot) statusDot.style.background = '#fbbf24';
+
+      const ports = [11100, 11101, 11102, 11103];
+      const protos = ['http', 'https'];
+
+      for (const proto of protos) {
+        for (const p of ports) {
+          try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 1200);
+            const res = await fetch(`${proto}://127.0.0.1:${p}/rd/info`, {
+              method: 'DEVICEINFO',
+              signal: controller.signal
+            }).catch(() => fetch(`${proto}://127.0.0.1:${p}/`, { signal: controller.signal }));
+            clearTimeout(timeout);
+
+            if (res && (res.ok || res.status === 200)) {
+              clientMorphsPort = p;
+              clientMorphsProtocol = proto;
+              clientMorphsReady = true;
+              if (statusDot) statusDot.style.background = '#00e5a3';
+              statusText.textContent = `Mantra MORPHS Hardware: Connected & Ready on ${proto}://127.0.0.1:${p}`;
+              return { port: p, protocol: proto };
+            }
+          } catch (e) {
+            // port unavailable, check next
+          }
+        }
+      }
+
+      clientMorphsReady = false;
+      if (statusDot) statusDot.style.background = '#f43f5e';
+      statusText.textContent = 'Mantra RD Service not detected on 127.0.0.1:11100. (Ensure Mantra RD Service is running on Windows)';
+      return null;
+    }
+
+    async function scanClientMorphs() {
+      $('platenWrap').classList.add('scanning');
+      status('Connecting to physical Mantra MORPHS on client machine... Watch device LEDs. Please place fingers flat.', false);
+
+      const mode = $('mode').value;
+      const fCount = mode === 'thumbs' ? 2 : 4;
+
+      const pidOptions = `<?xml version="1.0"?>
+<PidOptions ver="1.0">
+  <Opts fCount="${fCount}" fType="2" iCount="0" pCount="0" format="0" pidVer="2.0" timeout="25000" env="P" />
+  <CustOpts>
+    <Param name="wsq" value="0" />
+    <Param name="raw" value="1" />
+    <Param name="format" value="2" />
+  </CustOpts>
+</PidOptions>`;
+
+      const ports = [clientMorphsPort, 11100, 11101, 11102];
+      const protos = [clientMorphsProtocol, 'http', 'https'];
+      let capturedXml = null;
+      let lastErr = null;
+
+      for (const proto of protos) {
+        for (const p of ports) {
+          try {
+            status(`Sending CAPTURE to Mantra MORPHS on ${proto}://127.0.0.1:${p}... Platen sensor active!`);
+            let res = await fetch(`${proto}://127.0.0.1:${p}/rd/capture`, {
+              method: 'CAPTURE',
+              headers: { 'Content-Type': 'text/xml' },
+              body: pidOptions
+            }).catch(() => null);
+
+            if (!res || !res.ok) {
+              res = await fetch(`${proto}://127.0.0.1:${p}/rd/capture`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/xml' },
+                body: pidOptions
+              }).catch(() => null);
+            }
+
+            if (res && res.ok) {
+              capturedXml = await res.text();
+              clientMorphsPort = p;
+              clientMorphsProtocol = proto;
+              break;
+            }
+          } catch (err) {
+            lastErr = err;
+          }
+        }
+        if (capturedXml) break;
+      }
+
+      if (!capturedXml) {
+        $('platenWrap').classList.remove('scanning');
+        throw new Error('Could not connect to Mantra MORPHS RD Service on 127.0.0.1. Please ensure Mantra RD Service is started on your Windows PC. ' + (lastErr ? lastErr.message : ''));
+      }
+
+      // Parse XML response
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(capturedXml, 'text/xml');
+      const resp = xmlDoc.getElementsByTagName('Resp')[0];
+      if (resp) {
+        const errCode = resp.getAttribute('errCode');
+        const errInfo = resp.getAttribute('errInfo') || 'Hardware capture failed';
+        if (errCode && errCode !== '0' && errCode !== 'SUCCESS') {
+          $('platenWrap').classList.remove('scanning');
+          throw new Error(`Mantra MORPHS (${errCode}): ${errInfo}`);
+        }
+      }
+
+      // Extract raw image Base64 from XML
+      let rawImageBase64 = null;
+      const dataNodes = xmlDoc.getElementsByTagName('Data');
+      for (let i = 0; i < dataNodes.length; i++) {
+        const val = dataNodes[i].textContent.trim();
+        if (val.length > 500) {
+          rawImageBase64 = val;
+          break;
+        }
+      }
+      if (!rawImageBase64) {
+        const bioNodes = xmlDoc.getElementsByTagName('BioData');
+        for (let i = 0; i < bioNodes.length; i++) {
+          const val = bioNodes[i].textContent.trim();
+          if (val.length > 500) {
+            rawImageBase64 = val;
+            break;
+          }
+        }
+      }
+
+      if (!rawImageBase64) {
+        $('platenWrap').classList.remove('scanning');
+        throw new Error('Capture triggered successfully on Mantra MORPHS, but no raw optical plate was returned. Check raw=1 option.');
+      }
+
+      // Render onto platen canvas (1600x1500)
+      const isBmp = rawImageBase64.startsWith('Qk');
+      const isPng = rawImageBase64.startsWith('iVB');
+      const imgPrefix = isBmp ? 'data:image/bmp;base64,' : isPng ? 'data:image/png;base64,' : 'data:image/bmp;base64,';
+
+      const img = new Image();
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = () => reject(new Error('Failed to parse optical image raster from Mantra MORPHS scanner.'));
+        img.src = imgPrefix + rawImageBase64;
+      });
+
+      const platenCanvas = $('platen');
+      const ctx = platenCanvas.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      ctx.clearRect(0, 0, 1600, 1500);
+
+      // Fit or center losslessly
+      const ratio = Math.min(1600 / img.width, 1500 / img.height);
+      const dw = img.width * ratio;
+      const dh = img.height * ratio;
+      const dx = (1600 - dw) / 2;
+      const dy = (1500 - dh) / 2;
+      ctx.drawImage(img, dx, dy, dw, dh);
+
+      const purePngDataUrl = platenCanvas.toDataURL('image/png');
+      const pureBase64 = purePngDataUrl.replace(/^data:image\/png;base64,/, '');
+
+      state.capture = {
+        image: pureBase64,
+        mode: mode,
+        simulated: false,
+        source: 'client_morphs'
+      };
+
+      resetAssessment();
+      $('provenance').textContent = 'CLIENT MORPHS HARDWARE (PHYSICAL)';
+      $('provenance').className = 'badge green';
+      $('captureClock').textContent = new Date().toLocaleTimeString();
+      $('btnDlFullSlap').style.display = 'inline-flex';
+      status('Acquired 100% physical 500 DPI slap from Mantra MORPHS! Assessing NIST NFIQ segmentation...');
+
+      await assess();
+    }
+
+    async function scanServer() {
+      $('platenWrap').classList.add('scanning');
+      const capture = await api('/api/capture', {
+        mode: $('mode').value,
+        identity: Number($('identity').value),
+        skin: $('skin').value,
+        impression: state.impression++
+      });
+      state.capture = capture;
+      resetAssessment();
+      await drawPlaten();
+      $('provenance').textContent = capture.simulated ? 'SIMULATED CAPTURE' : 'HARDWARE CAPTURE (SERVER)';
+      $('provenance').className = 'badge ' + (capture.simulated ? 'yellow' : 'green');
+      $('captureClock').textContent = new Date().toLocaleTimeString();
+      $('btnDlFullSlap').style.display = 'inline-flex';
+      status('Acquired ' + capture.mode + ' frame (100% lossless 500 DPI). Assessing segmentation...');
+      await assess();
+    }
+
+    async function scan() {
+      const source = $('captureSource') ? $('captureSource').value : 'client_morphs';
+      if (source === 'client_morphs') {
+        await scanClientMorphs();
+      } else {
+        await scanServer();
+      }
+    }
+
+    async function assess() {
+      const result = await api('/api/segment', imagePayload());
+      state.fingers = result.fingers;
+      $('fingers').replaceChildren();
+
+      for (const f of state.fingers) {
+        const card = document.createElement('div');
+        card.className = 'finger';
+
+        const header = document.createElement('div');
+        header.className = 'finger-header';
+        const title = document.createElement('div');
+        title.className = 'finger-title';
+        title.textContent = f.finger_name;
+
+        const badge = document.createElement('span');
+        let ratingText = '';
+        if (f.nfiq_score <= 2) {
+          badge.className = 'badge green';
+          ratingText = 'NFIQ ' + f.nfiq_score + ' · PASS (High Quality)';
+        } else if (f.nfiq_score === 3) {
+          badge.className = 'badge yellow';
+          ratingText = 'NFIQ 3 · PASS (Marginal)';
+        } else {
+          badge.className = 'badge red';
+          ratingText = 'NFIQ ' + f.nfiq_score + ' · RECAPTURE (Fail)';
+        }
+        badge.textContent = ratingText;
+        header.append(title, badge);
+
+        const canvas = document.createElement('canvas');
+        const image = await loadImage(f.image);
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(image, 0, 0);
+
+        ctx.fillStyle = '#00e5a3';
+        for (const [px, py] of f.points || []) {
+          ctx.beginPath();
+          ctx.arc(px, py, 2.5, 0, 2 * Math.PI);
+          ctx.fill();
+        }
+
+        const meta = document.createElement('div');
+        meta.className = 'finger-meta';
+        const features = document.createElement('span');
+        features.textContent = f.minutiae_count === null ? f.feature_count + ' ORB Features' : f.minutiae_count + ' Minutiae Points';
+        const engine = document.createElement('span');
+        engine.textContent = f.segmentation_engine + ' · ' + f.quality_engine;
+        meta.append(features, engine);
+
+        const btnDl = document.createElement('button');
+        btnDl.className = 'ghost sm';
+        btnDl.style.cssText = 'font-size:10px; padding:3px 6px; width:100%; margin-top:4px;';
+        btnDl.textContent = '⇩ Save Lossless Plate (500 DPI)';
+        btnDl.onclick = () => downloadFingerImageLossless(f);
+
+        card.append(header, canvas, meta, btnDl);
+        $('fingers').append(card);
+      }
+
+      const failed = state.fingers.filter(f => f.status === 'FAIL').length;
+      $('qualitySummary').textContent = failed ? failed + ' REQUIRE RECAPTURE' : 'ALL FINGERS PASS';
+      $('qualitySummary').className = 'badge ' + (failed ? 'red' : 'green');
+      $('btnDlCurrentGroup').style.display = 'inline-flex';
+      $('btnDlFullSlap').style.display = 'inline-flex';
+
+      await drawPlaten();
+      if (state.fingers.length > 0) {
+        await drawFit($('probe'), state.fingers[0].image);
+      }
+
+      if (failed > 0) {
+        status('Recapture Required: 1 or more fingers scored NFIQ 4–5. Re-position hand on platen and re-capture.', true);
+        $('btnProceedGroup').disabled = true;
+        $('groupProgressMsg').textContent = '⚠️ Quality failure: Recapture required before proceeding.';
+        $('groupProgressMsg').style.color = '#f43f5e';
+      } else {
+        status('Segmented ' + state.fingers.length + ' fingers (100% lossless). All meet Schengen quality standard.');
+        $('btnProceedGroup').disabled = false;
+        $('groupProgressMsg').textContent = '✅ Group verified (' + state.fingers.length + ' fingers pass). Click Approve to advance.';
+        $('groupProgressMsg').style.color = '#00e5a3';
+      }
+    }
+
+
+    async function registry() {
+      const result = await api('/api/subjects');
+      state.subjects = result.subjects;
+      $('subjects').replaceChildren();
+
+      for (const subject of state.subjects) {
+        const row = document.createElement('tr');
+        if (state.selected === subject.id) row.className = 'selected';
+
+        const idCell = document.createElement('td');
+        idCell.style.fontFamily = 'var(--font-mono)';
+        idCell.textContent = '#' + subject.id;
+
+        const nameCell = document.createElement('td');
+        nameCell.style.fontWeight = '600';
+        nameCell.textContent = subject.name;
+
+        const countCell = document.createElement('td');
+        countCell.innerHTML = '<span class="badge ' + (subject.finger_count >= 10 ? 'green' : 'cyan') + '">' + subject.finger_count + ' / 10</span>';
+
+        const provCell = document.createElement('td');
+        provCell.textContent = subject.simulated ? 'Simulation' : 'Device / import';
+        provCell.style.color = 'var(--text-muted)';
+
+        row.append(idCell, nameCell, countCell, provCell);
+        row.onclick = () => {
+          state.selected = subject.id;
+          $('name').value = subject.name;
+          $('selectedSubject').innerHTML = 'Selected: <strong style="color:var(--text-main)">#' + subject.id + ' · ' + subject.name + '</strong> (' + subject.finger_count + ' fingers)';
+          for (const item of $('subjects').children) item.classList.remove('selected');
+          row.classList.add('selected');
+          clearComparison();
+          availability();
+        };
+        $('subjects').append(row);
+      }
+
+      if (!state.subjects.length) {
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 4;
+        cell.style.textAlign = 'center';
+        cell.style.color = 'var(--text-dim)';
+        cell.style.padding = '20px';
+        cell.textContent = 'No enrolled visa dossiers in database yet.';
+        row.append(cell);
+        $('subjects').append(row);
+      }
+    }
+
+    async function enrollGroup(append) {
+      if (!state.capture) throw new Error('Capture slap first.');
+      const fullName = ($('given_names').value + ' ' + $('surname').value).trim() || 'VISA APPLICANT';
+      $('name').value = fullName;
+
+      const payload = {
+        ...imagePayload(),
+        name: fullName,
+        passport_number: $('passport_number').value || 'GR9842105',
+        surname: $('surname').value,
+        given_names: $('given_names').value,
+        nationality: $('nationality').value,
+        date_of_birth: $('date_of_birth').value,
+        gender: $('gender').value,
+        passport_expiry: $('passport_expiry').value,
+        visa_ref: $('visa_ref').value,
+        visa_type: $('visa_type').value
+      };
+
+      if (append && state.enrolledSubjectId) {
+        payload.subject_id = state.enrolledSubjectId;
+      }
+
+      const result = await api('/api/enroll', payload);
+      state.enrolledSubjectId = result.subject_id;
+      state.selected = result.subject_id;
+      await registry();
+      status('Enrolled ' + result.enrolled_fingers + ' fingers into database for ' + fullName + ' (#' + result.subject_id + ').');
+      return result;
+    }
+
+    // Group Progression: Only proceed after approving current group; resets canvas fresh for next group!
+    async function proceedCurrentGroup() {
+      if (state.currentStep === 2) {
+        // 1. Approve & Enroll Right Four
+        await enrollGroup(false);
+        state.collectedFingers.right4 = [...state.fingers];
+
+        // 2. Prepare Step 3 (Left Four) fresh!
+        setStep(3);
+        state.capture = null;
+        resetAssessment();
+        const platenCtx = $('platen').getContext('2d');
+        platenCtx.clearRect(0, 0, 1600, 1500);
+        $('provenance').textContent = 'READY FOR LEFT FOUR';
+        $('provenance').className = 'badge';
+        $('captureClock').textContent = 'Awaiting Left Four Scan';
+        $('groupProgressMsg').textContent = 'Right Four approved! Position Left Four (Little → Index) and click Capture.';
+        $('groupProgressMsg').style.color = 'var(--text-muted)';
+        $('btnProceedGroup').disabled = true;
+        showToast('Right Four approved! Now capture Left Four.', 'success');
+      }
+      else if (state.currentStep === 3) {
+        // 1. Approve & Append Left Four
+        await enrollGroup(true);
+        state.collectedFingers.left4 = [...state.fingers];
+
+        // 2. Prepare Step 4 (Dual Thumbs) fresh!
+        setStep(4);
+        state.capture = null;
+        resetAssessment();
+        const platenCtx = $('platen').getContext('2d');
+        platenCtx.clearRect(0, 0, 1600, 1500);
+        $('provenance').textContent = 'READY FOR DUAL THUMBS';
+        $('provenance').className = 'badge';
+        $('captureClock').textContent = 'Awaiting Dual Thumbs Scan';
+        $('groupProgressMsg').textContent = 'Left Four approved! Position Left & Right Thumbs and click Capture.';
+        $('groupProgressMsg').style.color = 'var(--text-muted)';
+        $('btnProceedGroup').disabled = true;
+        showToast('Left Four approved! Now capture Dual Thumbs.', 'success');
+      }
+      else if (state.currentStep === 4) {
+        // 1. Approve & Append Dual Thumbs
+        await enrollGroup(true);
+        state.collectedFingers.thumbs = [...state.fingers];
+
+        // 2. Advance to Final Dossier Summary!
+        setStep(5);
+        showToast('All 10 fingers verified & enrolled into central database!', 'success');
+      }
+    }
+
+    // Reset everything fresh for a new applicant
+    function resetAll() {
+      state.passportLocked = false;
+      state.capture = null;
+      state.fingers = [];
+      state.selected = null;
+      state.enrolledSubjectId = null;
+      state.collectedFingers = { right4: [], left4: [], thumbs: [] };
+
+      // Clear inputs
+      $('passport_number').value = '';
+      $('surname').value = '';
+      $('given_names').value = '';
+      $('date_of_birth').value = '';
+      $('nationality').value = 'GRC';
+      $('visa_ref').value = '';
+
+      // Clear canvases
+      const platenCtx = $('platen').getContext('2d');
+      platenCtx.clearRect(0, 0, 1600, 1500);
+      resetAssessment();
+      clearComparison();
+
+      setStep(1);
+      status('Reset complete. Ready for new applicant intake.');
+      showToast('Reset complete. Ready for new applicant.', 'info');
+    }
+
+    // Step back logic
+    function goBioBack() {
+      if (state.currentStep === 2) {
+        setStep(1);
+      } else if (state.currentStep === 3) {
+        setStep(2);
+      } else if (state.currentStep === 4) {
+        setStep(3);
+      }
+    }
+
+    async function showResult(result) {
+      $('score').textContent = Number(result.score).toFixed(1);
+      const gaugeWidth = Math.min(100, (Number(result.score) / Number(result.threshold)) * 50);
+      $('gauge').style.width = gaugeWidth + '%';
+      $('decision').textContent = result.is_match ? 'MATCH PASS' : 'NO MATCH';
+      $('decision').className = 'badge ' + (result.is_match ? 'green' : 'red');
+
+      $('resultText').textContent = (result.name || 'Subject #' + result.subject_id) +
+        ' · Threshold: ' + result.threshold +
+        ' · ' + result.compared_fingers + ' fingers evaluated. ' +
+        (state.engine?.demo_matcher ? 'Uncalibrated demonstration score.' : 'SourceAFIS verified score.');
+
+      const first = result.finger_scores?.[0];
+      if (first) {
+        const probe = state.fingers.find(f => f.finger_name === first.finger_name);
+        if (probe) await drawFit($('probe'), probe.image);
+
+        const headers = {};
+        if ($('token').value) headers.Authorization = 'Bearer ' + $('token').value;
+        const response = await fetch('/api/fingerprints/' + first.fingerprint_id + '/image', { headers });
+        if (!response.ok) throw new Error('Cannot load enrolled candidate image.');
+        const blob = await response.blob();
+        const base64 = await new Promise(resolve => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result.split(',')[1]);
+          reader.readAsDataURL(blob);
+        });
+        await drawFit($('candidate'), base64);
+        $('candidateLabel').textContent = 'ENROLLED · ' + first.finger_name;
+      }
+    }
+
+    async function compare() {
+      const kind = $('kind').value;
+      if (kind === '1:1' && !state.selected) throw new Error('Select an enrolled identity from the registry first.');
+      if (!state.fingers.length) await assess();
+
+      const payload = { ...imagePayload(), kind, threshold: Number($('threshold').value) };
+      if (kind === '1:1') payload.subject_id = state.selected;
+
+      const result = await api('/api/verify', payload);
+      $('hits').replaceChildren();
+
+      if (kind === '1:N') {
+        if (!result.candidates.length) {
+          clearComparison();
+          $('decision').textContent = 'NO HITS';
+          $('decision').className = 'badge red';
+          $('resultText').textContent = 'No enrolled subject met the threshold for every requested finger.';
+          status('1:N Search complete: No matching candidates found.');
+          return;
+        }
+        for (const hit of result.candidates) {
+          const button = document.createElement('button');
+          button.className = 'sm';
+          button.textContent = '#' + hit.subject_id + ' ' + hit.name + ' · Score ' + Number(hit.score).toFixed(1);
+          button.onclick = () => work(() => showResult(hit));
+          $('hits').append(button);
+        }
+        await showResult(result.candidates[0]);
+        status('1:N Search complete: ' + result.candidates.length + ' ranked candidate(s) found.');
+      } else {
+        await showResult(result);
+        status('1:1 Verification complete: ' + (result.is_match ? 'MATCH' : 'NO MATCH') + '.');
+      }
+    }
+
+    async function connect() {
+      state.engine = await api('/api/health');
+      state.connected = true;
+      const h = state.engine;
+      $('engineInfo').textContent = h.device.engine + ' · ' + h.segmentation_engine + ' · ' + h.quality_engine;
+      $('matcherBadge').textContent = h.matcher_engine;
+      $('matcherBadge').className = 'badge ' + (h.demo_matcher ? 'yellow' : 'green');
+
+      if (h.mongodb) {
+        if (h.mongodb.connected) {
+          $('mongoStatusBadge').textContent = 'Database: Connected (' + h.mongodb.dossier_count + ' dossiers)';
+          $('dbDot').style.background = '#00e5a3';
+        } else {
+          $('mongoStatusBadge').textContent = 'Database: Ready';
+          $('dbDot').style.background = '#00e5a3';
+        }
+      }
+
+      await registry();
+      const logLine = document.createElement('div');
+      logLine.textContent = new Date().toLocaleTimeString() + '  Server host backend: ' + h.device.detail;
+      $('log').prepend(logLine);
+      status('Workstation connected. Central Biometric Vault Ready.');
+    }
+
+    // Fill Sample Greece Visa Applicant
+    $('btnFillSample').onclick = () => {
+      $('passport_number').value = 'GR' + Math.floor(1000000 + Math.random() * 9000000);
+      $('surname').value = 'PAPADOPOULOS';
+      $('given_names').value = 'NIKOLAOS';
+      $('nationality').value = 'GRC';
+      $('date_of_birth').value = '1992-06-15';
+      $('gender').value = 'M';
+      $('passport_expiry').value = '2032-06-14';
+      $('visa_ref').value = 'GR-VIS-2026-' + Math.floor(1000 + Math.random() * 9000);
+      showToast('Filled sample Greece Visa applicant demographics', 'success');
+    };
+
+    // Automated Passport Extraction (PassportEye, pdfplumber, PyTesseract, PyPDF)
+    const pDropzone = $('passportDropzone');
+    const pFileInput = $('passportFileInput');
+    const pStatus = $('passportUploadStatus');
+    const mrzBadge = $('mrzExtractionBadge');
+    const mrzMethodTag = $('mrzMethodTag');
+    const mrzRawDisplay = $('mrzRawDisplay');
+    const btnToggleMrzRaw = $('btnToggleMrzRaw');
+    const btnOpenPassportModal = $('btnOpenPassportModal');
+    const modalPassportUpload = $('modalPassportUpload');
+    const btnClosePassportModal = $('btnClosePassportModal');
+    const btnClosePassportModalBtn = $('btnClosePassportModalBtn');
+
+    function openPassportModal() {
+      if (modalPassportUpload) {
+        modalPassportUpload.classList.add('open');
+        if (pStatus) pStatus.style.display = 'none';
+      }
+    }
+
+    function closePassportModal() {
+      if (modalPassportUpload) {
+        modalPassportUpload.classList.remove('open');
+      }
+    }
+
+    if (btnOpenPassportModal) btnOpenPassportModal.onclick = openPassportModal;
+    if (btnClosePassportModal) btnClosePassportModal.onclick = closePassportModal;
+    if (btnClosePassportModalBtn) btnClosePassportModalBtn.onclick = closePassportModal;
+
+    if (pDropzone && pFileInput) {
+      pDropzone.onclick = () => pFileInput.click();
+
+      ['dragenter', 'dragover'].forEach(name => {
+        pDropzone.addEventListener(name, (e) => {
+          e.preventDefault();
+          pDropzone.classList.add('dragover');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach(name => {
+        pDropzone.addEventListener(name, (e) => {
+          e.preventDefault();
+          pDropzone.classList.remove('dragover');
+        });
+      });
+
+      pDropzone.addEventListener('drop', (e) => {
+        const files = e.dataTransfer.files;
+        if (files && files.length > 0) {
+          handlePassportFileUpload(files[0]);
+        }
+      });
+
+      pFileInput.onchange = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+          handlePassportFileUpload(e.target.files[0]);
+        }
+      };
+    }
+
+    if (btnToggleMrzRaw && mrzRawDisplay) {
+      btnToggleMrzRaw.onclick = () => {
+        const isHidden = mrzRawDisplay.style.display === 'none';
+        mrzRawDisplay.style.display = isHidden ? 'block' : 'none';
+        btnToggleMrzRaw.textContent = isHidden ? 'Hide MRZ Lines' : 'View MRZ Lines';
+      };
+    }
+
+    async function optimizeUploadFile(file) {
+      if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+        return file;
+      }
+      // Immediately downsample any image with max dimension > 1200px or size > 400KB
+      if (file.type.startsWith('image/') || /\.(jpe?g|png|webp|bmp|tiff?)$/i.test(file.name)) {
+        try {
+          const bitmap = await createImageBitmap(file);
+          const maxDim = 1200;
+          let w = bitmap.width;
+          let h = bitmap.height;
+          if (w > maxDim || h > maxDim || file.size > 400 * 1024) {
+            if (w > h) {
+              h = Math.round((h * maxDim) / w);
+              w = maxDim;
+            } else {
+              w = Math.round((w * maxDim) / h);
+              h = maxDim;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'medium';
+            ctx.drawImage(bitmap, 0, 0, w, h);
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.88));
+            if (blob) {
+              return new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' });
+            }
+          }
+        } catch (e) {
+          // Fallback to original file
+        }
+      }
+      return file;
+    }
+
+    let passportTimerInterval = null;
+
+    async function handlePassportFileUpload(rawFile) {
+      if (!rawFile) return;
+      pStatus.style.display = 'block';
+      mrzBadge.style.display = 'none';
+
+      const statusText = $('passportStatusText');
+      const statusTimer = $('passportStatusTimer');
+      const progressBar = $('passportProgressBar');
+      const statusSubtext = $('passportStatusSubtext');
+
+      if (statusText) statusText.textContent = '⚡ Ingesting: ' + rawFile.name;
+      if (progressBar) progressBar.style.width = '20%';
+      if (statusSubtext) statusSubtext.textContent = '[Phase 1/3] Preparing image & optimizing buffer...';
+
+      // Live timer interval
+      const t0 = performance.now();
+      if (passportTimerInterval) clearInterval(passportTimerInterval);
+      passportTimerInterval = setInterval(() => {
+        const elapsedSec = ((performance.now() - t0) / 1000).toFixed(1);
+        if (statusTimer) statusTimer.textContent = elapsedSec + 's';
+      }, 100);
+
+      try {
+        const file = await optimizeUploadFile(rawFile);
+        if (progressBar) progressBar.style.width = '50%';
+        if (statusSubtext) statusSubtext.textContent = '[Phase 2/3] Isolating MRZ strip with Computer Vision & OCR...';
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const headers = {};
+        if (state.token) headers['Authorization'] = 'Bearer ' + state.token;
+
+        const res = await fetch('/api/passport/extract', {
+          method: 'POST',
+          headers,
+          body: formData
+        });
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.detail || 'Extraction failed');
+        }
+
+        const data = await res.json();
+        clearInterval(passportTimerInterval);
+        const finalElapsed = ((performance.now() - t0) / 1000).toFixed(2);
+        if (statusTimer) statusTimer.textContent = finalElapsed + 's';
+        if (progressBar) progressBar.style.width = '100%';
+        if (statusSubtext) statusSubtext.textContent = '[Phase 3/3] Extraction complete in ' + (data.elapsed_ms ? data.elapsed_ms + 'ms' : finalElapsed + 's') + '!';
+
+        setTimeout(() => {
+          if (pStatus) pStatus.style.display = 'none';
+          closePassportModal();
+        }, 600);
+
+        if (data.passport_number || data.surname || data.given_names) {
+          // Auto-fill form inputs
+          if (data.passport_number) $('passport_number').value = data.passport_number;
+          if (data.surname) $('surname').value = data.surname;
+          if (data.given_names) $('given_names').value = data.given_names;
+          if (data.nationality) $('nationality').value = data.nationality;
+          if (data.date_of_birth) $('date_of_birth').value = data.date_of_birth;
+          if (data.gender) $('gender').value = data.gender;
+          if (data.passport_expiry) $('passport_expiry').value = data.passport_expiry;
+          if (data.visa_ref) $('visa_ref').value = data.visa_ref;
+
+          // Pulse inputs with animation
+          ['passport_number', 'surname', 'given_names', 'nationality', 'date_of_birth', 'gender', 'passport_expiry'].forEach(id => {
+            const el = $(id);
+            if (el) {
+              el.classList.add('field-highlight');
+              setTimeout(() => el.classList.remove('field-highlight'), 1600);
+            }
+          });
+
+          // Show Extraction Badge with elapsed timing
+          mrzBadge.style.display = 'block';
+          const method = (data.extraction_method || 'MRZ').replace(/_/g, ' ').toUpperCase();
+          const elapsed = data.elapsed_ms ? (data.elapsed_ms + ' ms') : (finalElapsed + ' s');
+          mrzMethodTag.textContent = method + (data.mrz_verified ? ' · VALIDATED' : '') + ' (' + elapsed + ')';
+          if (data.raw_mrz && data.raw_mrz.length > 0) {
+            mrzRawDisplay.textContent = Array.isArray(data.raw_mrz) ? data.raw_mrz.join('\n') : data.raw_mrz;
+          } else {
+            mrzRawDisplay.textContent = 'Extracted: ' + (data.surname || '') + ' ' + (data.given_names || '') + ' | ' + (data.passport_number || '');
+          }
+
+          showToast('⚡ Extracted in ' + elapsed + ': ' + (data.surname || '') + ' ' + (data.given_names || '') + ' (' + (data.passport_number || '') + ')', 'success');
+        } else {
+          clearInterval(passportTimerInterval);
+          pStatus.style.display = 'block';
+          if (statusText) statusText.innerHTML = '<span style="color:var(--warning)">⚠️ Could not detect valid passport MRZ</span>';
+          if (statusSubtext) statusSubtext.textContent = 'Please check image quality or enter details manually.';
+          showToast('Could not find passport text in uploaded document', 'error');
+        }
+      } catch (err) {
+        clearInterval(passportTimerInterval);
+        pStatus.style.display = 'block';
+        if (statusText) statusText.innerHTML = '<span style="color:var(--danger)">❌ Extraction error: ' + escapeHtml(err.message) + '</span>';
+        showToast('Passport ingestion error: ' + err.message, 'error');
+      }
+    }
+
+    // Lock Passport Data & Advance to Right Four
+    $('btnLockPassport').onclick = () => {
+      const pNum = $('passport_number').value.trim();
+      const sName = $('surname').value.trim();
+      const gName = $('given_names').value.trim();
+      if (!pNum || !sName || !gName) {
+        showToast('Please fill Passport Number, Surname, and Given Names', 'error');
+        return;
+      }
+      state.passportLocked = true;
+      $('name').value = (gName + ' ' + sName).trim();
+      updateDossierCard();
+      showToast('Passport Demographics Confirmed. Proceeding to Biometric Acquisition.', 'success');
+      setStep(2); // Jump to Right Four
+    };
+
+    // Button bindings at the bottom
+    $('btnProceedGroup').onclick = () => work(proceedCurrentGroup);
+    $('btnBioBack').onclick = goBioBack;
+
+    // Reset buttons
+    $('btnResetAll1').onclick = resetAll;
+    $('btnResetAll5').onclick = resetAll;
+    $('btnResetAll6').onclick = resetAll;
+
+    $('btnProceedToMatcher').onclick = () => setStep(6);
+    $('btnMatcherBack').onclick = () => setStep(5);
+
+    // Capture & Segment Handlers
+    $('connect').onclick = () => work(connect);
+    $('capture').onclick = () => work(scan);
+    $('segment').onclick = () => work(assess);
+    $('enroll').onclick = () => work(() => enrollGroup(false));
+    $('append').onclick = () => work(() => enrollGroup(true));
+    $('refresh').onclick = () => work(registry);
+    $('verify').onclick = () => work(compare);
+
+    $('mode').onchange = () => {
+      state.capture = null;
+      resetAssessment();
+      $('platen').getContext('2d').clearRect(0, 0, 1600, 1500);
+      $('provenance').textContent = 'NO CAPTURE';
+      updateHandGuide();
+      availability();
+    };
+
+    $('upload').onchange = () => work(async () => {
+      const file = $('upload').files[0];
+      if (!file) return;
+      if (file.size > 8 * 1024 * 1024) throw new Error('PNG must be at most 8 MiB.');
+      const image = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const decoded = await loadImage(image);
+      if (decoded.width !== 1600 || decoded.height !== 1500) {
+        throw new Error('Import must be exactly 1600 × 1500 px PNG.');
+      }
+      state.capture = { image, mode: $('mode').value };
+      resetAssessment();
+      await drawPlaten();
+      $('provenance').textContent = 'IMPORTED / UNVERIFIED';
+      $('provenance').className = 'badge cyan';
+      $('captureClock').textContent = new Date().toLocaleTimeString();
+      status('Imported 1600 × 1500 PNG.');
+      await assess();
+    });
+
+    $('live').onclick = async () => {
+      state.live = !state.live;
+      $('live').textContent = state.live ? 'Stop Live Preview' : 'Start Live Preview';
+      availability();
+      if (!state.live) return;
+      while (state.live) {
+        await work(async () => {
+          try {
+            await scan();
+          } catch (e) {
+            state.live = false;
+            $('live').textContent = 'Start Live Preview';
+            throw e;
+          }
+        });
+        if (state.live) await new Promise(resolve => setTimeout(resolve, 900));
+      }
+      availability();
+    };
+
+    // Modals
+    $('btnTour').onclick = () => $('modalTour').classList.add('open');
+    $('btnCloseTourX').onclick = () => $('modalTour').classList.remove('open');
+    $('btnSkipTour').onclick = () => $('modalTour').classList.remove('open');
+    $('btnInfograph').onclick = () => $('modalInfograph').classList.add('open');
+    $('btnCloseInfographX').onclick = () => $('modalInfograph').classList.remove('open');
+    $('btnCloseInfograph').onclick = () => $('modalInfograph').classList.remove('open');
+
+    $('btnAuthToggle').onclick = () => $('authPopover').classList.toggle('open');
+    $('btnSaveAuth').onclick = () => {
+      $('authPopover').classList.remove('open');
+      work(connect);
+    };
+
+    $('btnClearLog').onclick = () => {
+      $('log').replaceChildren();
+      status('Session log cleared.');
+    };
+
+    $('btnDlFullSlap').onclick = downloadFullSlapLossless;
+    $('btnDlCurrentGroup').onclick = downloadCurrentGroupLossless;
+    $('btnDownload10PrintLossless').onclick = () => {
+      const p = ($('passport_number').value || '').trim() || 'CURRENT';
+      window.location.href = `/api/database/export/${encodeURIComponent(p)}/zip?format=PNG`;
+    };
+
+
+    window.addEventListener('keydown', e => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+      if (e.key === 'Escape') {
+        $('modalTour').classList.remove('open');
+        $('modalInfograph').classList.remove('open');
+        $('authPopover').classList.remove('open');
+      } else if (e.code === 'Space' && !$('capture').disabled) {
+        e.preventDefault();
+        $('capture').click();
+      }
+    });
+
+    // Client Hardware Source Switcher & Auto-Discovery
+    if ($('captureSource')) {
+      $('captureSource').onchange = () => {
+        const isClient = $('captureSource').value === 'client_morphs';
+        if ($('clientScannerStatusCard')) $('clientScannerStatusCard').style.display = isClient ? 'flex' : 'none';
+        if ($('lblSkinState')) $('lblSkinState').style.display = isClient ? 'none' : 'flex';
+        if ($('lblSimIdentity')) $('lblSimIdentity').style.display = isClient ? 'none' : 'flex';
+        if (isClient) {
+          checkMantraMorphsStatus();
+        }
+      };
+    }
+    if ($('btnCheckClientScanner')) {
+      $('btnCheckClientScanner').onclick = () => work(checkMantraMorphsStatus);
+    }
+    setTimeout(checkMantraMorphsStatus, 800);
+
+    // Init
+    setStep(1);
+    work(connect);
+  </script>
+</body>
+
+</html>
