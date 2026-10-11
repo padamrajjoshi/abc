@@ -17,6 +17,7 @@ from typing import Literal
 from urllib.parse import urlparse
 
 from fastapi import Depends, FastAPI, HTTPException, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse, Response
 from pydantic import BaseModel, ConfigDict, Field
@@ -172,7 +173,7 @@ class BusyOperation:
 
 
 class Payload(BaseModel):
-    model_config = ConfigDict(extra='forbid')
+    model_config = ConfigDict(extra='ignore')
 
 
 class CaptureRequest(Payload):
@@ -258,6 +259,18 @@ async def not_found(request, exc):
 @app.exception_handler(ValueError)
 async def invalid_input(request, exc):
     return JSONResponse({'detail': str(exc)}, status_code=422)
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_error(request: Request, exc: RequestValidationError):
+    errors = []
+    for err in exc.errors():
+        loc = " -> ".join(str(l) for l in err.get("loc", []) if l != "body")
+        msg = err.get("msg", "Invalid value")
+        errors.append(f"{loc}: {msg}" if loc else msg)
+    clean_msg = "; ".join(errors) or "Invalid request parameters."
+    log.warning("Request validation 422 on %s %s: %s", request.method, request.url.path, clean_msg)
+    return JSONResponse({'detail': clean_msg}, status_code=422)
 
 
 @app.exception_handler(RuntimeError)

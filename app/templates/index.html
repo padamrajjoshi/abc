@@ -2005,7 +2005,13 @@
         let message = 'Request failed (' + r.status + ')';
         try {
           const err = await r.json();
-          message = typeof err.detail === 'string' ? err.detail : JSON.stringify(err.detail);
+          if (Array.isArray(err.detail)) {
+            message = err.detail.map(d => (d.loc ? d.loc.filter(x => x !== 'body').join('.') + ': ' : '') + d.msg).join('; ');
+          } else if (typeof err.detail === 'string') {
+            message = err.detail;
+          } else if (err.detail) {
+            message = JSON.stringify(err.detail);
+          }
         } catch { }
         throw new Error(message);
       }
