@@ -3,6 +3,7 @@ Connects via pymongo when available and gracefully handles offline/standalone en
 """
 import logging
 import os
+import secrets
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 from urllib.parse import quote_plus, urlparse
@@ -29,6 +30,7 @@ class MongoDossierStore:
         self.dossiers = None
         self.audit = None
         self._connected = False
+        self._local_visa_refs: set[str] = set()
         self.init_connection()
 
     def _resolve_uri(self, raw_uri: str) -> str:
@@ -103,6 +105,7 @@ class MongoDossierStore:
             # Create indices
             self.dossiers.create_index('passport_number')
             self.dossiers.create_index('subject_id')
+            self.dossiers.create_index('visa_ref', sparse=True)
             self.dossiers.create_index([('created_at', pymongo.DESCENDING)])
             self._connected = True
             log.info('MongoDB connected successfully: %s', self._safe_uri())
@@ -117,6 +120,48 @@ class MongoDossierStore:
         if not self._connected and HAVE_PYMONGO:
             return self.init_connection()
         return self._connected
+
+    def is_visa_ref_taken(self, visa_ref: str, exclude_passport: str = "") -> bool:
+        """Check if a visa reference number is already taken by any stored dossier."""
+        v_clean = (visa_ref or '').strip().upper()
+        if not v_clean:
+            return False
+        if v_clean in self._local_visa_refs:
+            # If checking with exclude_passport and it's in local cache, let's verify in db
+            if not self.is_connected or self.dossiers is None:
+                return True
+        if not self.is_connected or self.dossiers is None:
+            return v_clean in self._local_visa_refs
+        try:
+            query: Dict[str, Any] = {'visa_ref': v_clean}
+            if exclude_passport:
+                query['passport_number'] = {'$ne': exclude_passport.strip().upper()}
+            return self.dossiers.count_documents(query, limit=1) > 0
+        except Exception as e:
+            log.warning('Could not check visa_ref uniqueness in MongoDB: %s', e)
+            return v_clean in self._local_visa_refs
+
+    def generate_unique_visa_ref(self, prefix: str = "GR-VIS", year: Optional[int] = None) -> str:
+        """Generate a cryptographically random, collision-free Visa Reference Number.
+        Guaranteed to never repeat any stored reference in the database.
+        Format: GR-VIS-YYYY-XXXXXX (6 random digits, giving 900,000 unique values per year).
+        """
+        year = year or datetime.now().year
+        for _ in range(5000):
+            rand_code = secrets.randbelow(900000) + 100000
+            candidate = f"{prefix}-{year}-{rand_code}"
+            if not self.is_visa_ref_taken(candidate):
+                self._local_visa_refs.add(candidate)
+                return candidate
+
+        # Fallback to 8-character high-entropy alphanumeric token if high volume
+        alphabet = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"
+        while True:
+            token = "".join(secrets.choice(alphabet) for _ in range(8))
+            candidate = f"{prefix}-{year}-{token}"
+            if not self.is_visa_ref_taken(candidate):
+                self._local_visa_refs.add(candidate)
+                return candidate
 
     def status(self) -> Dict[str, Any]:
         connected = self.is_connected
@@ -135,11 +180,37 @@ class MongoDossierStore:
 
 
     def upsert_dossier(self, data: Dict[str, Any]) -> Dict[str, Any]:
-        if not self.is_connected or self.dossiers is None:
-            return data
-
         passport_number = (data.get('passport_number') or '').strip().upper()
         now = datetime.now(timezone.utc).isoformat()
+        current_year = datetime.now().year
+
+        # Check existing dossier to preserve already assigned visa_ref
+        existing = None
+        if self.is_connected and self.dossiers is not None:
+            try:
+                existing = self.dossiers.find_one({'passport_number': passport_number})
+            except Exception:
+                existing = None
+
+        candidate_ref = (data.get('visa_ref') or '').strip().upper()
+
+        if existing and existing.get('visa_ref'):
+            # If the applicant already has a visa_ref, keep their existing reference
+            if not candidate_ref or candidate_ref == existing.get('visa_ref'):
+                final_visa_ref = existing['visa_ref']
+            elif not self.is_visa_ref_taken(candidate_ref, exclude_passport=passport_number):
+                final_visa_ref = candidate_ref
+            else:
+                final_visa_ref = existing['visa_ref']
+        else:
+            # Brand new applicant: ensure candidate is non-repeating across entire database
+            if candidate_ref and not self.is_visa_ref_taken(candidate_ref, exclude_passport=passport_number):
+                final_visa_ref = candidate_ref
+            else:
+                final_visa_ref = self.generate_unique_visa_ref(year=current_year)
+
+        self._local_visa_refs.add(final_visa_ref)
+
         doc = {
             'passport_number': passport_number,
             'surname': (data.get('surname') or '').strip().upper(),
@@ -148,7 +219,7 @@ class MongoDossierStore:
             'date_of_birth': data.get('date_of_birth') or '',
             'gender': (data.get('gender') or 'M').strip().upper(),
             'passport_expiry': data.get('passport_expiry') or '',
-            'visa_ref': data.get('visa_ref') or f"GR-VIS-{datetime.now().year}-{data.get('subject_id', 101)}",
+            'visa_ref': final_visa_ref,
             'visa_type': data.get('visa_type') or 'SCHENGEN_C_TOURIST',
             'place_of_birth': data.get('place_of_birth') or '',
             'station_id': data.get('station_id') or 'ATH-CONSULAR-STATION-01',
@@ -162,8 +233,10 @@ class MongoDossierStore:
             doc['finger_count'] = len(data['fingers'])
             doc['status'] = 'ENROLLED_10_PRINT' if len(data['fingers']) >= 10 else 'IN_PROGRESS'
 
-        update_payload = {'$set': doc, '$setOnInsert': {'created_at': now}}
-        self.dossiers.update_one({'passport_number': passport_number}, update_payload, upsert=True)
+        if self.is_connected and self.dossiers is not None:
+            update_payload = {'$set': doc, '$setOnInsert': {'created_at': now}}
+            self.dossiers.update_one({'passport_number': passport_number}, update_payload, upsert=True)
+
         return doc
 
     def append_fingerprint_group(self, passport_number: str, mode: str,

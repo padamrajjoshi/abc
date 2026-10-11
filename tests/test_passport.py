@@ -106,3 +106,44 @@ def test_parse_mrz_with_header_noise_nepal_passport():
     assert parsed['gender'] == 'M'
     assert parsed['passport_expiry'] == '2032-09-11'
     assert parsed['mrz_verified'] is True
+
+
+def test_visa_ref_random_and_unique_generation():
+    from app.mongodb import MongoDossierStore
+    store = MongoDossierStore()
+    generated = [store.generate_unique_visa_ref() for _ in range(100)]
+    
+    # Assert all 100 generated are completely unique (no duplicates)
+    assert len(generated) == len(set(generated))
+    for ref in generated:
+        assert ref.startswith("GR-VIS-")
+        parts = ref.split("-")
+        assert len(parts) == 4
+        # Format: GR - VIS - YYYY - XXXXXX
+        assert parts[0] == "GR"
+        assert parts[1] == "VIS"
+        assert len(parts[3]) >= 6
+
+
+def test_visa_ref_collision_avoidance():
+    from app.mongodb import MongoDossierStore
+    store = MongoDossierStore()
+    
+    # Simulate an already stored visa reference
+    taken_ref = "GR-VIS-2026-999888"
+    store._local_visa_refs.add(taken_ref)
+    
+    # Verify is_visa_ref_taken detects it
+    assert store.is_visa_ref_taken(taken_ref) is True
+    
+    # When upserting a new dossier with the taken_ref, it must detect collision and assign a new unique ref
+    dossier = {
+        'passport_number': 'TESTPASS01',
+        'surname': 'DOE',
+        'given_names': 'JOHN',
+        'visa_ref': taken_ref
+    }
+    result = store.upsert_dossier(dossier)
+    # The assigned visa_ref must NOT equal the taken one!
+    assert result['visa_ref'] != taken_ref
+    assert result['visa_ref'].startswith("GR-VIS-")

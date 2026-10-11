@@ -14,6 +14,7 @@ import io
 import logging
 import os
 import re
+import secrets
 import time
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
@@ -778,7 +779,8 @@ class PassportExtractor:
         country_name = COUNTRY_CODES.get(nat, nat)
 
         year = datetime.now().year
-        ref = f"GR-VIS-{year}-{abs(hash(p_num)) % 8999 + 1000}" if p_num else f"GR-VIS-{year}-9842"
+        rand_code = secrets.randbelow(900000) + 100000
+        ref = f"GR-VIS-{year}-{rand_code}"
 
         res['country_name'] = country_name
         res['visa_ref'] = ref

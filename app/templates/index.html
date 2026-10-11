@@ -1460,8 +1460,13 @@
             <input id="passport_expiry" type="date" value="2032-06-14">
           </div>
           <div>
-            <label for="visa_ref">Visa Reference Number</label>
-            <input id="visa_ref" placeholder="e.g. GR-VIS-2026-8941" value="GR-VIS-2026-8941">
+            <div class="row spread" style="align-items:center; margin-bottom:4px;">
+              <label for="visa_ref" style="margin-bottom:0">Visa Reference Number</label>
+              <button id="btnGenVisaRef" type="button" class="ghost sm" style="font-size:11px; padding:2px 8px; height:auto; color:var(--accent); font-weight:600;" title="Generate new random unique Visa Reference Number guaranteed never to repeat">
+                🎲 New Unique Ref
+              </button>
+            </div>
+            <input id="visa_ref" placeholder="Generating unique reference..." value="">
           </div>
           <div>
             <label for="visa_type">Visa Application Category</label>
@@ -2720,6 +2725,7 @@
       $('date_of_birth').value = '';
       $('nationality').value = 'GRC';
       $('visa_ref').value = '';
+      fetchUniqueVisaRef();
 
       // Clear canvases
       const platenCtx = $('platen').getContext('2d');
@@ -2833,10 +2839,38 @@
       logLine.textContent = new Date().toLocaleTimeString() + '  Server host backend: ' + h.device.detail;
       $('log').prepend(logLine);
       status('Workstation connected. Central Biometric Vault Ready.');
+      if (!$('visa_ref').value) {
+        await fetchUniqueVisaRef();
+      }
+    }
+
+    // Generate guaranteed unique non-repeating Visa Reference Number
+    async function fetchUniqueVisaRef() {
+      try {
+        const res = await api('/api/visa/generate-ref');
+        if (res && res.visa_ref) {
+          $('visa_ref').value = res.visa_ref;
+          return res.visa_ref;
+        }
+      } catch (e) {
+        // Fallback local random generator if server unreachable
+        const yr = new Date().getFullYear();
+        const rand = Math.floor(100000 + Math.random() * 900000);
+        const fallback = 'GR-VIS-' + yr + '-' + rand;
+        $('visa_ref').value = fallback;
+        return fallback;
+      }
+    }
+
+    if ($('btnGenVisaRef')) {
+      $('btnGenVisaRef').onclick = async () => {
+        const ref = await fetchUniqueVisaRef();
+        showToast('Generated unique Visa Reference: ' + ref, 'success');
+      };
     }
 
     // Fill Sample Greece Visa Applicant
-    $('btnFillSample').onclick = () => {
+    $('btnFillSample').onclick = async () => {
       $('passport_number').value = 'GR' + Math.floor(1000000 + Math.random() * 9000000);
       $('surname').value = 'PAPADOPOULOS';
       $('given_names').value = 'NIKOLAOS';
@@ -2844,7 +2878,7 @@
       $('date_of_birth').value = '1992-06-15';
       $('gender').value = 'M';
       $('passport_expiry').value = '2032-06-14';
-      $('visa_ref').value = 'GR-VIS-2026-' + Math.floor(1000 + Math.random() * 9000);
+      await fetchUniqueVisaRef();
       showToast('Filled sample Greece Visa applicant demographics', 'success');
     };
 

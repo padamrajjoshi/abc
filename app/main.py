@@ -299,7 +299,28 @@ async def extract_passport_data(request: Request):
         log.warning('[PASSPORT-INGEST] <<< FINISHED in %s ms with no valid passport fields detected. Engines tried: %s',
                     t_elapsed, data.get('engines_used'))
 
+    # Guarantee unique, non-repeating Visa Reference Number across the central database
+    mongo = request.app.state.mongodb
+    p_num = (data.get('passport_number') or '').strip().upper()
+    existing_dossier = mongo.get_dossier(p_num) if p_num else None
+    if existing_dossier and existing_dossier.get('visa_ref'):
+        data['visa_ref'] = existing_dossier['visa_ref']
+    else:
+        candidate_ref = (data.get('visa_ref') or '').strip().upper()
+        if candidate_ref and not mongo.is_visa_ref_taken(candidate_ref, exclude_passport=p_num):
+            data['visa_ref'] = candidate_ref
+        else:
+            data['visa_ref'] = mongo.generate_unique_visa_ref()
+
     return data
+
+
+@app.get('/api/visa/generate-ref')
+def generate_visa_ref(request: Request):
+    """Generate a random unique Visa Reference Number guaranteed never to repeat any stored reference."""
+    mongo = request.app.state.mongodb
+    unique_ref = mongo.generate_unique_visa_ref()
+    return {'visa_ref': unique_ref, 'year': datetime.now().year}
 
 
 @app.post('/api/capture', dependencies=[Depends(authorize)])
@@ -371,7 +392,7 @@ def enroll(payload: EnrollRequest, request: Request):
                 'date_of_birth': payload.date_of_birth or '',
                 'gender': payload.gender or 'M',
                 'passport_expiry': payload.passport_expiry or '',
-                'visa_ref': payload.visa_ref or f"GR-VIS-2026-{result['subject_id']}",
+                'visa_ref': (payload.visa_ref or '').strip() or request.app.state.mongodb.generate_unique_visa_ref(),
                 'visa_type': payload.visa_type or 'SCHENGEN_C_TOURIST',
                 'place_of_birth': payload.place_of_birth or '',
                 'station_id': payload.station_id or 'ATH-CONSULAR-01',
@@ -479,7 +500,7 @@ def get_database_records(request: Request):
                     'date_of_birth': '',
                     'gender': 'M',
                     'passport_expiry': '',
-                    'visa_ref': f"GR-VIS-2026-{s_id}",
+                    'visa_ref': mongo.generate_unique_visa_ref(),
                     'visa_type': 'SCHENGEN_C_TOURIST',
                     'place_of_birth': '',
                     'station_id': 'LOCAL-REGISTRY',
