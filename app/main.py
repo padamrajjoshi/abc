@@ -14,8 +14,10 @@ from collections import OrderedDict
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Literal
+from urllib.parse import urlparse
 
 from fastapi import Depends, FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse, Response
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -102,6 +104,15 @@ class BoundedBodyMiddleware:
 app.add_middleware(BoundedBodyMiddleware)
 
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 @app.middleware('http')
 async def security_headers(request, call_next):
     response = await call_next(request)
@@ -117,10 +128,35 @@ def authorize(request: Request):
     if token and not hmac.compare_digest(request.headers.get('Authorization', ''), f'Bearer {token}'):
         raise HTTPException(401, 'A valid workstation API token is required.')
     origin = request.headers.get('Origin')
-    allowed = {str(request.base_url).rstrip('/')}
-    allowed.update(filter(None, os.getenv('ALLOWED_ORIGINS', '').split(',')))
-    if request.method != 'GET' and origin and origin not in allowed:
-        raise HTTPException(403, 'Cross-origin operation denied.')
+    if request.method != 'GET' and origin:
+        allowed = {str(request.base_url).rstrip('/')}
+        # Include Host and X-Forwarded-Host from reverse proxies (ngrok, caddy, nginx)
+        host = request.headers.get('x-forwarded-host') or request.headers.get('host')
+        proto = request.headers.get('x-forwarded-proto') or request.url.scheme or 'https'
+        if host:
+            allowed.add(f"{proto}://{host}".rstrip('/'))
+            allowed.add(f"https://{host}".rstrip('/'))
+            allowed.add(f"http://{host}".rstrip('/'))
+
+        # Check explicitly configured ALLOWED_ORIGINS
+        env_allowed = [o.strip().rstrip('/') for o in os.getenv('ALLOWED_ORIGINS', '').split(',') if o.strip()]
+        if '*' in env_allowed or not env_allowed:
+            # Default: automatically allow ngrok tunnels, localhost, and matching hosts
+            parsed = urlparse(origin)
+            domain = parsed.netloc.split(':')[0]
+            if (domain.endswith('.ngrok-free.app') or
+                domain.endswith('.ngrok.io') or
+                domain.endswith('.ngrok.app') or
+                domain in ('localhost', '127.0.0.1') or
+                (host and domain == host.split(':')[0])):
+                return
+
+        for o in env_allowed:
+            if o == '*' or o == origin.rstrip('/'):
+                return
+
+        if origin.rstrip('/') not in allowed:
+            raise HTTPException(403, 'Cross-origin operation denied.')
 
 
 class BusyOperation:

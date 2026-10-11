@@ -2286,7 +2286,7 @@
       if (statusDot) statusDot.style.background = '#fbbf24';
 
       const ports = [11100, 11101, 11102, 11103];
-      const protos = ['http', 'https'];
+      const protos = window.location.protocol === 'https:' ? ['https', 'http'] : ['http', 'https'];
 
       for (const proto of protos) {
         for (const p of ports) {
@@ -2305,6 +2305,7 @@
               clientMorphsReady = true;
               if (statusDot) statusDot.style.background = '#00e5a3';
               statusText.textContent = `Mantra MORPHS Hardware: Connected & Ready on ${proto}://127.0.0.1:${p}`;
+              if ($('clientScannerHelp')) $('clientScannerHelp').style.display = 'none';
               return { port: p, protocol: proto };
             }
           } catch (e) {
@@ -2315,7 +2316,8 @@
 
       clientMorphsReady = false;
       if (statusDot) statusDot.style.background = '#f43f5e';
-      statusText.textContent = 'Mantra RD Service not detected on 127.0.0.1:11100. (Ensure Mantra RD Service is running on Windows)';
+      statusText.textContent = 'Mantra RD Service not responding on 127.0.0.1:11100. (Ensure service is running on Windows)';
+      if ($('clientScannerHelp')) $('clientScannerHelp').style.display = 'block';
       return null;
     }
 
@@ -2374,7 +2376,11 @@
 
       if (!capturedXml) {
         $('platenWrap').classList.remove('scanning');
-        throw new Error('Could not connect to Mantra MORPHS RD Service on 127.0.0.1. Please ensure Mantra RD Service is started on your Windows PC. ' + (lastErr ? lastErr.message : ''));
+        const isHttps = window.location.protocol === 'https:';
+        const helpMsg = isHttps
+          ? 'Could not connect to Mantra RD Service on 127.0.0.1:11100. Over HTTPS/ngrok, please click the site settings icon (🎚️) next to the URL bar and set "Insecure content: Allow", or switch Capture Source to "Server Workstation Engine".'
+          : 'Could not connect to Mantra MORPHS RD Service on 127.0.0.1:11100. Ensure Mantra RD Service is running in Windows Services.';
+        throw new Error(helpMsg);
       }
 
       // Parse XML response
