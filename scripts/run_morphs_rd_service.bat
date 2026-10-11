@@ -6,6 +6,11 @@ echo    Starting Mantra MORPHS RD Service on http://127.0.0.1:11100
 echo ======================================================================
 echo.
 
+if exist "%~dp0..\.venv\Scripts\python.exe" (
+    "%~dp0..\.venv\Scripts\python.exe" "%~dp0morphs_rd_service.py"
+    goto end
+)
+
 where python >nul 2>nul
 if %ERRORLEVEL% EQU 0 (
     python "%~dp0morphs_rd_service.py"
